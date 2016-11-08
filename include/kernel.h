@@ -13,13 +13,9 @@ class Kernel{
     private:
 
         /** actual algorithm step. */
-        void direct_update();
+        double direct_update(double t);
 
         Model model;
-
-
-
-
 
 };
 
