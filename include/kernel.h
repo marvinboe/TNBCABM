@@ -2,6 +2,8 @@
 #define __KERNEL__ 
 
 #include "model.h"
+#include "reactions.h"
+#include "misc.h"
 
 class Kernel{
     public:
@@ -16,6 +18,11 @@ class Kernel{
         double direct_update(double t);
 
         Model model;
+
+        AllReactions _all_reactions;
+
+        static std::uniform_real_distribution<double> uniform01;
+
 
 };
 

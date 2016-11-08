@@ -7,25 +7,30 @@
 #include <stdexcept>
 #include <vector>
 #include "model.h"
-#include "rangen.h"
 
 
-class Reaction { //X0 ->X0 + X1 or X0 -> X0 + X0
+class Reaction { //X0+X1 ->Y0 + Y1
 public:
-	Reaction():reactant(0), _product1(0), _product2(0), _r(-1.0), _used(0){};
+	Reaction():_reactant1(0),_reactant2(0),_reactant_comp(0), _product1(0), _product2(0), _r(-1.0), _used(0){};
+
+        /** initialize Reaction:
+         * r1: type of reactant 1 ...
+         *
+         *
+         */
+	Reaction(unsigned r1, unsigned r2,unsigned comp, unsigned p1, unsigned p2,double rate):_reactant1(r1),_reactant2(r2),_reactant_comp(comp), _product1(p1), _product2(p2), _r(rate), _used(0){};
+
+
 	Reaction(const Reaction& other);
 	virtual ~Reaction() {};
 	
-	unsigned int reactant() const {return _reactant;}
+	unsigned int reactant1() const {return _reactant1;}
+	unsigned int reactant2() const {return _reactant2;}
 	unsigned int product1() const {return _product1;}
 	unsigned int product2() const {return _product2;}
 	double rate() const {return _r;}
 	
-
-	double probability(double dt) const {return _a * dt;}
-
-	
-        void setRate(double v) {_r=v;};
+        void setRate(double v) {_r=v;}
 	
 	unsigned used() const {return _used;}
 	void incr_used() {_used += 1;}
@@ -35,17 +40,20 @@ public:
 	friend std::ostream & operator<<(std::ostream &o, Reaction& r){return r.display(o);}
 	
         /** applies this reaction. */
-	virtual bool apply(Model& model,double time);
+	virtual bool apply(Model& model);
 
-	virtual bool sufficientReactants(Model& model);
+        /** are enough reactants available for this reaction? */
+	virtual bool sufficient_reactants(Model& model);
         
         /** returns number of cells for given reaction type */
-	virtual double reactantFactor(Model& model);
+	virtual double reactant_factor(Model& model);
 	
 	
 protected:
 	virtual std::ostream& display(std::ostream& os);
-	unsigned int _reactant;
+	unsigned int _reactant1;
+	unsigned int _reactant2;
+        unsigned int _reactant_comp;
 	unsigned int _product1;
 	unsigned int _product2;
 	double _r; // rate constants of reaction (= compartment_rate * eps or compartmentr_rate * (1-eps))
@@ -55,7 +63,7 @@ protected:
 
 class division_without_mutation : public Reaction {
 public:
-	division_without_mutation(int type, double rate):Reaction(compartment,ct,compartment,ct,compartment,ct,rate){};
+	division_without_mutation(int type, double rate):Reaction(type, type,0,0, 0,rate){};
 	division_without_mutation(const division_without_mutation& other):Reaction(other){};
 	virtual ~division_without_mutation() {};
 	virtual division_without_mutation& operator=(const division_without_mutation& other);
@@ -65,7 +73,7 @@ public:
 
 class AllReactions  {
 public:
-	AllReactions():_sumprop(0.0){_all.clear();}
+	AllReactions():_ratesum(0.0){_all.clear();}
 	~AllReactions(){
 		while(_all.size() > 0){
 			Reaction* r = _all[_all.size()-1];
@@ -82,9 +90,11 @@ public:
 
         /** Returns pointer to reaction saved in _all[pos] */
 	Reaction* operator[](unsigned pos);
+
+        Reaction * return_random_reaction();
 	
-	double propSum() const {return _sumprop;}
-	void setPropSum(double v) { _sumprop = v;}
+	double rate_sum() const {return _ratesum;}
+	void set_rate_sum(double v) { _ratesum = v;}
 
         void print(std::ostream &);
 	
@@ -95,7 +105,7 @@ public:
 	
 protected:
         std::vector<Reaction*> _all;
-	double _sumprop;
+	double _ratesum;
 };
 
 #endif
