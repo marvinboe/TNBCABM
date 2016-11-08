@@ -1,0 +1,18 @@
+Stochastic simulations of triple negative breast cancers.
+
+
+for working with the repository:
+
+1. to get it
+git clone https://github.com/marvinboe/TNBCABM.git
+
+2. make local changes and then:
+git commit myfilethatischanged.txt
+
+3. get the most recent changes:
+git pull
+
+4. solve all emerging conflicts and commit them! (git will notify you about those). Then do git pull again.
+
+5. push your changes to the common repo:
+git push
