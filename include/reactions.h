@@ -63,7 +63,7 @@ protected:
 
 class division_without_mutation : public Reaction {
 public:
-	division_without_mutation(int type, double rate):Reaction(type, type,0,0, 0,rate){};
+	division_without_mutation(int type, int comp, double rate):Reaction(type, -1,comp,type, type,rate){};
 	division_without_mutation(const division_without_mutation& other):Reaction(other){};
 	virtual ~division_without_mutation() {};
 	virtual division_without_mutation& operator=(const division_without_mutation& other);
