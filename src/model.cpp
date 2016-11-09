@@ -30,3 +30,8 @@ double Model::get_Ccell_number(int comp, int type) const
 		if(Tumour[i][2]==(double)comp) CompTumourSize++;
 	return CompTumourSize;
 }
+
+void Model::set_Ccell_number(int comp, int type, double number){
+    //do some funny stuff
+
+}
