@@ -4,6 +4,7 @@
 #include <vector>
 #include "model.h"
 #include "misc.h"
+#include "data.h"
 
 
 class Reaction { //X0+X1 ->Y0 + Y1
@@ -20,6 +21,7 @@ public:
 	virtual ~Reaction() {};
 	
 	int reactant1() const {return _reactant1;}
+	int reactant_comp() const {return _reactant_comp;}
 	int reactant2() const {return _reactant2;}
 	int product1() const {return _product1;}
 	int product2() const {return _product2;}
@@ -38,10 +40,10 @@ public:
 	virtual bool apply(Model& model);
 
         /** are enough reactants available for this reaction? */
-	virtual bool sufficient_reactants(Model& model);
+	virtual bool sufficient_reactants(const Model& model);
         
         /** returns number of cells for given reaction type */
-	virtual double reactant_factor(Model& model);
+	virtual double reactant_factor(const Model& model);
 	
 	
 protected:
@@ -56,20 +58,28 @@ protected:
 };
 
 
-class division_without_mutation : public Reaction {
+class Division_without_mutation : public Reaction {
 public:
-	division_without_mutation(int type, int comp, double rate):Reaction(type, -1,comp,type, type,rate){};
-	division_without_mutation(const division_without_mutation& other):Reaction(other){};
-	virtual ~division_without_mutation() {};
-	virtual division_without_mutation& operator=(const division_without_mutation& other);
+	Division_without_mutation(int type, int comp, double rate):Reaction(type, -1,comp,type, type,rate){};
+	// Division_without_mutation(const Division_without_mutation& other):Reaction(other){};
+	// virtual ~Division_without_mutation() {};
+	// virtual Division_without_mutation& operator=(const Division_without_mutation& other);
 	
+};
+
+class Division_with_mutation : public Reaction {
+public:
+	Division_with_mutation(int type, int comp, double rate):Reaction(type, -1,comp,type, type+1,rate){};
+	Division_with_mutation(const Division_with_mutation& other):Reaction(other){};
+	virtual ~Division_with_mutation() {};
+	virtual Division_with_mutation& operator=(const Division_with_mutation& other);
 };
 
 
 class AllReactions  {
 public:
 	AllReactions():_ratesum(0.0){_all.clear();}
-	AllReactions(Model model);
+	AllReactions(const Model& model, const Data & data);
 
 	~AllReactions(){
 		while(_all.size() > 0){
@@ -86,9 +96,9 @@ public:
 	unsigned int add(Reaction*);
 
         /** Returns pointer to reaction saved in _all[pos] */
-	Reaction* operator[](unsigned pos);
+	Reaction* operator[](unsigned pos){return _all[pos];}
 
-        Reaction * return_random_reaction();
+        Reaction * return_random_reaction(const Model & model);
 	
 	double rate_sum() const {return _ratesum;}
 	void set_rate_sum(double v) { _ratesum = v;}
