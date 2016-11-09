@@ -15,16 +15,18 @@ double Kernel::direct_update(double t){
     for (std::vector<Reaction*>::iterator it=_all_reactions.begin(); it!=_all_reactions.end(); ++it){
         total_prop+=(*it)->update_propensity(_model);
     }
+    if (total_prop<=1e-20) return std::numeric_limits<double>::infinity();
+
     _all_reactions.set_total_propensity(total_prop);
 
     double tau=-1./_all_reactions.return_total_propensity() * std::log(uniform01(rng));
 
     double randchoice=_all_reactions.return_total_propensity() * uniform01(rng);
-    double weightsum=0.;
+    double wheightsum=0.;
     int i=-1;
-    while (weightsum<randchoice){
+    while (wheightsum<randchoice){
         ++i;
-        weightsum+=_all_reactions[i]->propensity();
+        wheightsum+=_all_reactions[i]->propensity();
     }
     Reaction* reaction= _all_reactions[i];
     reaction->apply(_model);
