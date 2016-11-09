@@ -13,10 +13,14 @@ class Data{
         double get_mutation_rate() const {return _mutation_rate;}
         void set_mutation_rate(double v){_mutation_rate=v;}
 
+        double return_initial_cellnumber() const { return _initial_cellnumber;}
+
     private:
         std::vector<double> prolif_rates;
 
         double _mutation_rate;
+
+        double _initial_cellnumber;
 
 
 };

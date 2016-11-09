@@ -17,6 +17,7 @@ int main(){
 
     Data data;
     Kernel ker(data);
-    std::cout <<"hello world"<<std::endl;
+    ker.execute();
+    std::cout <<"program indeed ended"<<std::endl;
 
 }

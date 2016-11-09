@@ -5,21 +5,21 @@ bool Reaction::apply(Model& model){
 
 
     if ((_reactant1_prolif >=0)&&(_reactant1_imm >=0)){
-        int react1=model.get_Ccell_number(_reactant1_prolif,_reactant1_imm);
+        int react1=model.return_Ccell_number(_reactant1_prolif,_reactant1_imm);
         model.set_Ccell_number(_reactant1_prolif,_reactant1_imm,react1-1);
     }
 
-    if ((_reactant2_prolif >=0)&&(_reactant2_imm >=0)){
-        int react2=model.get_Ccell_number(_reactant2_prolif,_reactant2_imm);
-        model.set_Ccell_number(_reactant2_prolif,_reactant2_imm,react2-1);
-    }
+    // if ((_reactant2_prolif >=0)&&(_reactant2_imm >=0)){
+    //     int react2=model.return_Ccell_number(_reactant2_prolif,_reactant2_imm);
+    //     model.set_Ccell_number(_reactant2_prolif,_reactant2_imm,react2-1);
+    // }
 
     if ((_product1_prolif >=0)&&(_product1_imm >=0)){
-        int prod1=model.get_Ccell_number(_product1_prolif,_product1_imm);
+        int prod1=model.return_Ccell_number(_product1_prolif,_product1_imm);
         model.set_Ccell_number(_product1_prolif,_product1_imm,prod1+1);
     }
     if ((_product2_prolif >=0)&&(_product2_imm >=0)){
-        int prod2=model.get_Ccell_number(_product2_prolif,_product2_imm);
+        int prod2=model.return_Ccell_number(_product2_prolif,_product2_imm);
         model.set_Ccell_number(_product2_prolif,_product2_imm,prod2+1);
     }
 
@@ -47,12 +47,12 @@ Reaction& Reaction::operator=(const Reaction& other){
 }
 
 double Reaction::reactant_factor( const Model& model) const{
-    return model.get_Ccell_number(reactant1_p(),reactant1_i());
+    return model.return_Ccell_number(reactant1_p(),reactant1_i());
 }
 
 
 bool Reaction::sufficient_reactants( const Model& model){
-    return (model.get_Ccell_number(reactant1_p(),reactant1_i())>0);
+    return (model.return_Ccell_number(reactant1_p(),reactant1_i())>0);
 }
 
 std::ostream& Reaction::display(std::ostream& os){
@@ -84,11 +84,9 @@ std::ostream& Reaction::display(std::ostream& os){
 
 AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0){
     _all.clear();
-    for (int comp_i=0; comp_i<5; ++comp_i){
-        Reaction * normaldiff= new Division_without_mutation(0,0,data.get_prolif_rate(0));
-        _all.push_back(normaldiff);
+     Reaction * normaldiff= new Division_without_mutation(0,0,data.get_prolif_rate(0));
+    _all.push_back(normaldiff);
 
-    }
 }
 
 
