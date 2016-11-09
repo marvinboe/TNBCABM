@@ -32,6 +32,22 @@ void Model::set_Ccell_number(int type_p, int type_i, double number){
     _cells[type_p][type_i]=number;
 }
 
-void output(double dt, std::ostream & os){
-	
+void Model::output(double dt, std::ostream & os1, std::ostream & os2) const{
+	int i,j;
+	double totalCellNum=0.;
+	double max_num_row=_cells.size();
+	double max_num_column=_cells[0].size();
+	//print number of cells of all phenotypes in a 2 dimentional matrix format(2 traits)
+	for(i=0;i<max_num_row;i++)
+	    {    
+		 for(j=0;j<max_num_column-1;j++)
+		 {
+		 os1<<_cells[i][j]<<"\t";
+		 totalCellNum=totalCellNum+_cells[i][j];
+		 }	
+		 os1<<_cells[i][j]<<"\n";
+		 totalCellNum=totalCellNum+_cells[i][j];
+        }
+	//print the total cells at time dt
+	os2<<dt<<"\t"<<totalCellNum<<"\n";
 }
