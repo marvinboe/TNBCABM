@@ -4,6 +4,7 @@
 #include "model.h"
 #include "reactions.h"
 #include "misc.h"
+#include <vector>
 
 class Kernel{
     public:

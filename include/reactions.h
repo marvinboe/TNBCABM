@@ -9,27 +9,41 @@
 
 class Reaction { //X0+X1 ->Y0 + Y1
     public:
-        Reaction():_reactant1(0),_reactant2(0),_reactant_comp(0), _product1(0), _product2(0), _r(-1.0), _used(0){};
+        Reaction():_reactant1_prolif(0),_reactant1_imm(0), _product1_prolif(0), _product2_prolif(0), _rate(-1.0), _used(0){};
 
         /** initialize Reaction:
          * r1: type of reactant 1
          * r2: type of reactant 2
          */
-        Reaction(unsigned r1, unsigned r2,unsigned comp, unsigned p1, unsigned p2,double rate):_reactant1(r1),_reactant2(r2),_reactant_comp(comp), _product1(p1), _product2(p2), _r(rate), _used(0){};
+        Reaction(unsigned r1p, unsigned r1i,// unsigned r2p, unsigned r2i,
+                unsigned p1p, unsigned p1i, unsigned p2p, unsigned p2i,double rate):
+            _reactant1_prolif(r1p),_reactant1_imm(r1i),//_reactant2_prolif(r1),_reactant2_imm(r1),
+            _product1_prolif(p1p),_product1_imm(p1i),_product2_prolif(p2p),_product2_imm(p2i),
+            _rate(rate), _used(0){};
 
 
         Reaction(const Reaction& other);
         virtual ~Reaction() {};
 
-        int reactant1() const {return _reactant1;}
-        int reactant_comp() const {return _reactant_comp;}
-        int reactant2() const {return _reactant2;}
-        int product1() const {return _product1;}
-        int product2() const {return _product2;}
-        double rate() const {return _r;}
+        int reactant1_p() const {return _reactant1_prolif;}
+        int reactant1_i() const {return _reactant1_imm;}
+        int product1_p() const {return _product1_prolif;;}
+        int product1_i() const {return _product2_imm;}
+        int product2_p() const {return _product2_prolif;;}
+        int product2_i() const {return _product2_imm;}
 
-        void setRate(double v) {_r=v;}
 
+        double rate() const {return _rate;}
+        double propensity() const {return _propensity;}
+
+
+        void setRate(double v) {_rate=v;}
+
+        /** sets the actual propensity of the reaction. 
+         * Usually propensity=rate*number_of_cells.*/
+        void set_propensity(double v) {_propensity=v;}
+
+        double update_propensity(const Model& model);
         unsigned used() const {return _used;}
         void incr_used() {_used += 1;}
         void reset_used() {_used = 0;}
@@ -44,31 +58,34 @@ class Reaction { //X0+X1 ->Y0 + Y1
         virtual bool sufficient_reactants(const Model& model);
 
         /** returns number of cells for given reaction type */
-        virtual double reactant_factor(const Model& model);
-        virtual double reactant_factor2( const Model& model) const;
+        virtual double reactant_factor(const Model& model) const;
 
     protected:
         virtual std::ostream& display(std::ostream& os);
-        int _reactant1;
-        int _reactant2;
-        unsigned int _reactant_comp;
-        int _product1;
-        int _product2;
-        double _r; // rate constants of reaction (= compartment_rate * eps or compartmentr_rate * (1-eps))
+        int _reactant1_prolif;
+        int _reactant1_imm;
+        int _reactant2_prolif;
+        int _reactant2_imm;
+        int _product1_prolif;
+        int _product1_imm;
+        int _product2_prolif;
+        int _product2_imm;
+        double _rate; // rate constants of reaction (= compartment_rate * eps or compartmentr_rate * (1-eps))
+        double _propensity;
         unsigned _used;
 };
 
 
 class Division_without_mutation : public Reaction {
     public:
-        Division_without_mutation(int type, int comp, double rate):Reaction(type, -1,comp,type, type,rate){};
+        Division_without_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,type_p,type_i,rate){};
         Division_without_mutation(const Division_without_mutation& other):Reaction(other){};
         virtual ~Division_without_mutation() {};
 };
 
 class Division_with_mutation : public Reaction {
     public:
-        Division_with_mutation(int type, int comp, double rate):Reaction(type, -1,comp,type, type+1,rate){};
+        Division_with_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,-1,-1,rate){};
         Division_with_mutation(const Division_with_mutation& other):Reaction(other){};
         virtual ~Division_with_mutation() {};
         // virtual Division_with_mutation& operator=(const Division_with_mutation& other);
@@ -110,9 +127,13 @@ class AllReactions  {
         std::vector<Reaction*>::const_iterator begin() const{return _all.begin();}
         std::vector<Reaction*>::const_iterator end() const {return _all.end();}
 
+        void set_total_propensity(double v){_total_propensity=v;}
+        double return_total_propensity(){return _total_propensity;}
+
     protected:
         std::vector<Reaction*> _all;
         double _ratesum;
+        double _total_propensity;
 };
 
 #endif
