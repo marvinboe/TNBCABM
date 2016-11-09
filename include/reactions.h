@@ -1,12 +1,9 @@
 #ifndef __REACTIONS_H
 #define __REACTIONS_H
 
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <stdexcept>
 #include <vector>
 #include "model.h"
+#include "misc.h"
 
 
 class Reaction { //X0+X1 ->Y0 + Y1

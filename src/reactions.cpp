@@ -13,6 +13,13 @@ bool Reaction::apply(Model& model){
 
 Reaction* AllReactions::return_random_reaction(){
 
+    std::uniform_real_distribution<double> uniform01(0.,_ratesum);
+    double rnumb=uniform01(rng);
+
+    for (int i =0; i< _all.size(); ++i){
+
+    }
+
     return _all.back();
 
 }

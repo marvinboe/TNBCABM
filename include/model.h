@@ -8,9 +8,12 @@ class Model{
     public:
         Model();
 
-        unsigned int get_Ccell_number(int comp, int type);
+        double get_Ccell_number(int comp, int type);
+        void set_Ccell_number(int type,int comp, double number);
 
-        unsigned int set_Ccell_number(int type,int comp, int number);
+        double get_immune_count(int comp);
+
+        void set_immune_count(int comp, double number);
 
         /* print model data to output. */
         void output(double dt, std::ostream & os);
