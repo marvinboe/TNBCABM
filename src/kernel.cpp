@@ -15,11 +15,20 @@ double Kernel::direct_update(double t){
     reaction->apply(model);
 
 
-
-
-    
-
-
-
     return t+tau;
+}
+
+
+
+void Kernel::execute(){
+    double t_max=100;
+
+    double t=0;
+    while (t<t_max){
+
+        t=direct_update(t);
+
+    }
+
+
 }

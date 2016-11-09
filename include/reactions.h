@@ -12,8 +12,6 @@ public:
 
         /** initialize Reaction:
          * r1: type of reactant 1 ...
-         *
-         *
          */
 	Reaction(unsigned r1, unsigned r2,unsigned comp, unsigned p1, unsigned p2,double rate):_reactant1(r1),_reactant2(r2),_reactant_comp(comp), _product1(p1), _product2(p2), _r(rate), _used(0){};
 
@@ -21,10 +19,10 @@ public:
 	Reaction(const Reaction& other);
 	virtual ~Reaction() {};
 	
-	unsigned int reactant1() const {return _reactant1;}
-	unsigned int reactant2() const {return _reactant2;}
-	unsigned int product1() const {return _product1;}
-	unsigned int product2() const {return _product2;}
+	int reactant1() const {return _reactant1;}
+	int reactant2() const {return _reactant2;}
+	int product1() const {return _product1;}
+	int product2() const {return _product2;}
 	double rate() const {return _r;}
 	
         void setRate(double v) {_r=v;}
@@ -48,11 +46,11 @@ public:
 	
 protected:
 	virtual std::ostream& display(std::ostream& os);
-	unsigned int _reactant1;
-	unsigned int _reactant2;
+	int _reactant1;
+	int _reactant2;
         unsigned int _reactant_comp;
-	unsigned int _product1;
-	unsigned int _product2;
+	int _product1;
+	int _product2;
 	double _r; // rate constants of reaction (= compartment_rate * eps or compartmentr_rate * (1-eps))
 	unsigned _used;
 };
@@ -71,6 +69,8 @@ public:
 class AllReactions  {
 public:
 	AllReactions():_ratesum(0.0){_all.clear();}
+	AllReactions(Model model);
+
 	~AllReactions(){
 		while(_all.size() > 0){
 			Reaction* r = _all[_all.size()-1];
