@@ -85,7 +85,9 @@ std::ostream& Reaction::display(std::ostream& os){
 AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0){
     _all.clear();
      Reaction * normaldiff= new Division_without_mutation(0,0,data.get_prolif_rate(0));
+     Reaction * death= new Spontanious_cell_death(0,0,data.get_prolif_rate(0));
     _all.push_back(normaldiff);
+    _all.push_back(death);
 
 }
 

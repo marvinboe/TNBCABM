@@ -36,12 +36,19 @@ double Kernel::direct_update(double t){
 
 
 void Kernel::execute(){
-    double t_max=10;
+    double t_max=100;
     double dt=0.1;
+    double output_step=1.;
+    double next_t_output=0.;
 
     double t=0;
     double t_stoch=0;
     while (t<t_max){
+        //output stuff (TODO maybe extra class for that)
+        while (next_t_output < t){
+            std::cout <<next_t_output<<" "<<_model.return_Ccell_number(0,0)<<std::endl;
+            next_t_output+=output_step;
+        }
         while (t_stoch<t){
             t_stoch=direct_update(t_stoch);
         }

@@ -7,7 +7,7 @@
 #include "data.h"
 
 
-class Reaction { //X0+X1 ->Y0 + Y1
+class Reaction { //X0 ->Y0 + Y1
     public:
         Reaction():_reactant1_prolif(0),_reactant1_imm(0), _product1_prolif(0), _product2_prolif(0), _rate(-1.0), _used(0){};
 
@@ -64,8 +64,8 @@ class Reaction { //X0+X1 ->Y0 + Y1
         virtual std::ostream& display(std::ostream& os);
         int _reactant1_prolif;
         int _reactant1_imm;
-        int _reactant2_prolif;
-        int _reactant2_imm;
+        // int _reactant2_prolif;
+        // int _reactant2_imm;
         int _product1_prolif;
         int _product1_imm;
         int _product2_prolif;
@@ -81,6 +81,14 @@ class Division_without_mutation : public Reaction {
         Division_without_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,type_p,type_i,rate){};
         Division_without_mutation(const Division_without_mutation& other):Reaction(other){};
         virtual ~Division_without_mutation() {};
+};
+
+class Spontanious_cell_death : public Reaction {
+    public:
+    Spontanious_cell_death(int type_p, int type_i,double rate):Reaction(type_p,type_i,-1,-1,-1,-1,rate){};
+    Spontanious_cell_death(const Spontanious_cell_death& other):Reaction(other){};
+    virtual ~Spontanious_cell_death(){};
+
 };
 
 class Division_with_mutation : public Reaction {
