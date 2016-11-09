@@ -4,10 +4,12 @@
 #include "model.h"
 #include "reactions.h"
 #include "misc.h"
+#include <vector>
 
 class Kernel{
     public:
-        Kernel();
+        /* constructor for Kernel. Uses data object for initialization. */
+        Kernel(Data data);
 
         /** execute simulation run. */
         void execute();
@@ -17,7 +19,7 @@ class Kernel{
         /** actual algorithm step. */
         double direct_update(double t);
 
-        Model model;
+        Model _model;
 
         AllReactions _all_reactions;
 

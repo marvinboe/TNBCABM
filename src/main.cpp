@@ -15,6 +15,9 @@ int main(){
     }
     rng.seed(random_seed); //seed RNGengine
 
-    std::cout <<"hello world"<<std::endl;
+    Data data;
+    Kernel ker(data);
+    ker.execute();
+    std::cout <<"program indeed ended"<<std::endl;
 
 }

@@ -6,7 +6,7 @@ CC:=g++
 
 
 #compilation target name
-TARGET := stochtreat
+TARGET := program
 
 #directories for source code and build-files
 BUILDDIR :=  build
