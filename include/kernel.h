@@ -5,6 +5,7 @@
 #include "reactions.h"
 #include "misc.h"
 #include <vector>
+#include <limits>
 
 class Kernel{
     public:

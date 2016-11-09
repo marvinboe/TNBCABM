@@ -11,7 +11,7 @@ Data::Data(){
 
 double Data::get_prolif_rate(unsigned int type) const{
     //needs to be written!
-    return 0.33;
+    return 0.3+type/double(_max_prolif_types);
 }
 
 
