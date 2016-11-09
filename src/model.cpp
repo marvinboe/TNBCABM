@@ -29,7 +29,7 @@ void Model::set_Ccell_number(int type_p, int type_i, double number){
     _cells[type_p][type_i]=number;
 }
 
-void output(double dt, std::ostream & os1, std::ostream & os2){
+void Model::output(double dt, std::ostream & os1, std::ostream & os2) const{
 	int i,j;
 	double totalCellNum=0.;
 	double max_num_row=_cells.size();
