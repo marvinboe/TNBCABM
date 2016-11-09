@@ -19,6 +19,8 @@ Model::Model(int initial_pt_size,int initial_mt_size,double num_micromets,double
 		row.push_back(j);//micromet tumour compartment
 	    Tumour.push_back(row);	
 	}
+	
+	
 }
 
 double Model::get_Ccell_number(int comp, int type) const
