@@ -43,6 +43,11 @@ double Reaction::reactant_factor( const Model& model){
     return model.get_Ccell_number(reactant_comp(),reactant1());
 }
 
+double Reaction::reactant_factor2( const Model& model) const{
+    if (reactant2()<0) return 0;
+    return model.get_Ccell_number(reactant_comp(),reactant2());
+}
+
 bool Reaction::sufficient_reactants( const Model& model){
     return (model.get_Ccell_number(reactant_comp(),reactant1())>0);
 }
@@ -82,3 +87,5 @@ AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0)
 
     }
 }
+
+

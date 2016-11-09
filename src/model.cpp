@@ -1,5 +1,9 @@
 #include "model.h"
 
+Model::Model(const Data& data){
+    //and here we go again
+}
+
 Model::Model(int initial_pt_size,int initial_mt_size,double num_micromets,double initial_pt_birthRate,double initial_mt_birthRate)
 {
 	int i,j;

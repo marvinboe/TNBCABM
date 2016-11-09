@@ -3,10 +3,12 @@
 
 #include <iostream>
 #include <vector>
+#include "data.h"
 
 class Model{
     public:
 
+        Model(const Data& data);
         
 		Model(int initial_pt_size,int initial_mt_size,double num_micromets,double initial_pt_birthRate,double initial_mt_birthRate);
 			

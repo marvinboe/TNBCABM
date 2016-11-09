@@ -1,6 +1,10 @@
 
 #include "kernel.h"
 
+Kernel::Kernel(Data data):_model(data){
+    // and here some even more funny stuff will come in
+
+}
 
 std::uniform_real_distribution<double> Kernel::uniform01(0.,1.);
 
@@ -18,7 +22,7 @@ double Kernel::direct_update(double t){
     }
     Reaction* reaction= _all_reactions[i];
 
-    reaction->apply(model);
+    reaction->apply(_model);
 
     return t+tau;
 }
