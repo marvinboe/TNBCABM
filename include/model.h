@@ -8,15 +8,15 @@ class Model{
     public:
         Model();
 
-        double get_Ccell_number(int comp, int type);
+        double get_Ccell_number(int comp, int type) const;
         void set_Ccell_number(int type,int comp, double number);
 
-        double get_immune_count(int comp);
+        double get_immune_count(int comp) const;
 
         void set_immune_count(int comp, double number);
 
         /* print model data to output. */
-        void output(double dt, std::ostream & os);
+        void output(double dt, std::ostream & os) const;
 
     private:
 
