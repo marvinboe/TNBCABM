@@ -21,7 +21,7 @@ Model::Model(int initial_pt_size,int initial_mt_size,double num_micromets,double
 	}
 }
 
-int Model::get_Ccell_number(int comp, int type)
+double Model::get_Ccell_number(int comp, int type) const
 {
 	int TotalTumourSize,CompTumourSize;
 	TotalTumourSize=Tumour.size();
