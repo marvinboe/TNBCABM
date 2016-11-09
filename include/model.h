@@ -24,7 +24,6 @@ class Model{
         /* print model data to output. */
         void output(double dt, std::ostream & os) const;//print the output
 
-
     private:
 		
     std::vector<std::vector<double>> _cells;
