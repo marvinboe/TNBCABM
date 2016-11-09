@@ -15,8 +15,8 @@ class Data{
 
         double return_initial_cellnumber() const { return _initial_cellnumber;}
 
-        int return_max_prolif_types(){ return _max_prolif_types;}
-        int return_max_immun_types(){ return _max_immun_types;}
+        int return_max_prolif_types() const { return _max_prolif_types;}
+        int return_max_immune_types() const { return _max_immun_types;}
 
         void set_max_prolif_types(int v){ _max_prolif_types=v;}
         void set_max_immun_types(int v){ _max_immun_types=v;}
