@@ -47,7 +47,6 @@ class Reaction { //X0+X1 ->Y0 + Y1
         virtual double reactant_factor(const Model& model);
         virtual double reactant_factor2( const Model& model) const;
 
-
     protected:
         virtual std::ostream& display(std::ostream& os);
         int _reactant1;
