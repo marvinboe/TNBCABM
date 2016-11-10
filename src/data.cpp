@@ -20,16 +20,16 @@ Data::Data(ParameterHandler & parameters){
     _max_immune_types=10;
     _start_immune_type=5;
     _mutation_rate = 1.1;
-	_chemo_state=0;
-	_death_chemo=1;
+	_chemo_state=1;
+	_death_chemo=0.5;
     _death_intrinsic=0.1;
 	_immune_promoted_rate=0;
 	_immune_inhibited_rate=0.01;
     _prolif_rate=0.3;
     _prolif_var=0.2;
     _prolif_step = _prolif_var / (double)_start_prolif_type;
-    _immune_sensitivity_rate = 0.3;
-    _immune_sensitivity_var = 0.2;
+    _immune_sensitivity_rate = 0.0001;
+    _immune_sensitivity_var = 0.00005;
     _immune_sensitivity_step = _immune_sensitivity_var / (double)_start_immune_type;
     
     _spontaneous_cell_death_rate=0.3;
