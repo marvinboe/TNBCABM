@@ -7,7 +7,6 @@
 class Data{
     public:
         Data();
-        Data(const Data&); 
         Data(ParameterHandler& parameters);
 
         double get_prolif_rate(unsigned int type) const;

@@ -7,12 +7,6 @@ Data::Data(){
     _max_immune_types=10;
 }
 
-Data::Data(const Data& other){
-    _initial_cellnumber=other.return_initial_cellnumber();
-    _max_prolif_types=other.return_max_prolif_types();
-    _max_immune_types=other.return_max_immune_types();
-    _mutation_rate=other.get_mutation_rate();
-}
 
 Data::Data(ParameterHandler & parameters){
     //defining defaults:
