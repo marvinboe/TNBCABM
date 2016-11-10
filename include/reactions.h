@@ -91,8 +91,6 @@ public:
     double update_propensity(const Model& model, const Data& data);
 };
 
-
-
 class Division_with_mutation : public Reaction {
 public:
     Division_with_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,-1,-1,rate){};
@@ -101,6 +99,17 @@ public:
     // virtual Division_with_mutation& operator=(const Division_with_mutation& other);
     bool apply(Model& model, const Data& data);
 };
+
+class Immune_division_with_mutation : public Reaction {
+public:
+    Immune_division_with_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,-1,-1,rate){};
+    Immune_division_with_mutation(const Immune_division_with_mutation& other):Reaction(other){};
+    virtual ~Immune_division_with_mutation() {};
+    // virtual Immune_division_with_mutation& operator=(const Immune_division_with_mutation& other);
+    double update_propensity(const Model& model, const Data& data);
+    bool apply(Model& model, const Data& data);
+};
+
 
 class Chemotherapy_cell_death : public Reaction {
 public:

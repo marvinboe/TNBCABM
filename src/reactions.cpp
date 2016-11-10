@@ -96,6 +96,44 @@ bool Division_with_mutation::apply(Model& model, const Data& data){
     return true;
 }
 
+bool Immune_division_with_mutation::apply(Model& model, const Data& data){
+    std::uniform_real_distribution<double> uniform01(0.,1.);
+    int new_prolif;
+    int new_imm;
+    
+    if ((_reactant1_prolif >=0)&&(_reactant1_imm >=0)){
+        int react1=model.return_Ccell_number(_reactant1_prolif,_reactant1_imm);
+        model.set_Ccell_number(_reactant1_prolif,_reactant1_imm,react1-1);
+    }
+    
+    // if prolif mutation
+    if(uniform01(rng) > 0.5){
+        if(uniform01(rng) > 0.5){
+            new_prolif = std::min(_reactant1_prolif + 1, data.return_max_prolif_types() - 1);
+        } else {
+            new_prolif = std::max(_reactant1_prolif - 1, 0);
+        }
+        model.increment_Ccell_number(new_prolif,_reactant1_imm,1);
+    } else {
+        if(uniform01(rng) > 0.5){
+            new_imm = std::min(_reactant1_imm+ 1, data.return_max_prolif_types() - 1);
+        } else {
+            new_imm = std::max(_reactant1_imm - 1, 0);
+        }
+        model.increment_Ccell_number(_reactant1_prolif,new_imm,1);
+    }
+    
+    return true;
+}
+
+double Immune_division_with_mutation::update_propensity(const Model& model, const Data& data){
+    double n=reactant_factor(model);
+    // update rate
+    _rate = model.return_pro_immune() * data.get_immune_sensitivity_rate(_reactant1_imm);
+    _propensity=_rate*n;
+    return _propensity;
+}
+
 double Chemotherapy_cell_death::update_propensity(const Model& model, const Data& data){
     double n=reactant_factor(model);
     // update rate
@@ -150,6 +188,8 @@ AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0)
             _all.push_back(immunenormaldiff);
             Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_prolif_rate(i) * data.get_mutation_rate());
             _all.push_back(mutationdiff);
+            Reaction * Immunemutationdiff= new Immune_division_with_mutation(i,j,(data.get_initial_pro_tumour_immune_cellnumber() * data.get_immune_sensitivity_rate(j)) * data.get_mutation_rate());
+            _all.push_back(Immunemutationdiff);
             Reaction * chemo_death= new Chemotherapy_cell_death(i,j, data.get_chemo_state() * data.get_death_chemo() * data.get_prolif_rate(i));
             _all.push_back(chemo_death);
             Reaction * immune_death= new Immune_cell_death(i,j, data.get_initial_anti_tumour_immune_cellnumber()  * data.get_immune_sensitivity_rate(j));
