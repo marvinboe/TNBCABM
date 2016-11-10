@@ -28,7 +28,7 @@ bool Reaction::apply(Model& model, const Data& data){
 
 }
 
-double Reaction::update_propensity(const Model& model){
+double Reaction::update_propensity(const Model& model, const Data& data){
     double n=reactant_factor(model);
     _propensity=_rate*n;
     return _propensity;
@@ -85,6 +85,14 @@ bool Division_with_mutation::apply(Model& model, const Data& data){
     return true;
 }
 
+double Chemotherapy_cell_death::update_propensity(const Model& model, const Data& data){
+    double n=reactant_factor(model);
+    // update rate
+    _rate = data.get_chemo_state() * data.get_death_chemo() * data.get_prolif_rate(_reactant1_prolif);
+    _propensity=_rate*n;
+    return _propensity;
+}
+
 std::ostream& Reaction::display(std::ostream& os){
     //TODO to be implemented
     os << "#reaction: "
@@ -120,6 +128,8 @@ AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0)
             _all.push_back(normaldiff);
             Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_prolif_rate(i) * data.get_mutation_rate());
             _all.push_back(mutationdiff);
+            Reaction * chemo_death= new Chemotherapy_cell_death(i,j, data.get_chemo_state() * data.get_death_chemo() * data.get_prolif_rate(i));
+            _all.push_back(chemo_death);
             Reaction * death= new Spontanious_cell_death(i,j, data.get_spontaneous_cell_death_rate());
             _all.push_back(death);
         }
