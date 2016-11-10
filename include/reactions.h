@@ -83,6 +83,15 @@ class Division_without_mutation : public Reaction {
         virtual ~Division_without_mutation() {};
 };
 
+class Immune_division_without_mutation : public Reaction {
+public:
+    Immune_division_without_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,type_p,type_i,rate){};
+    Immune_division_without_mutation(const Immune_division_without_mutation& other):Reaction(other){};
+    virtual ~Immune_division_without_mutation() {};
+    double update_propensity(const Model& model, const Data& data);
+};
+
+
 
 class Division_with_mutation : public Reaction {
 public:
