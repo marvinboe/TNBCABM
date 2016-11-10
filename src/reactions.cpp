@@ -182,8 +182,8 @@ AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0)
             _all.push_back(chemo_death);
             Reaction * immune_death= new Immune_cell_death(i,j, data.get_initial_anti_tumour_immune_cellnumber()  * data.get_immune_sensitivity_rate(j));
             _all.push_back(immune_death);
-            //Reaction * death= new Spontanious_cell_death(i,j, data.get_spontaneous_cell_death_rate());
-            //_all.push_back(death);
+            Reaction * death= new Spontanious_cell_death(i,j, data.get_spontaneous_cell_death_rate());
+            _all.push_back(death);
         }
     }
 

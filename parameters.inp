@@ -1,0 +1,4 @@
+
+prolif_types=10 #number of proliferation types
+
+mutation_rate=0.1 #Probability for mutation on cell division
