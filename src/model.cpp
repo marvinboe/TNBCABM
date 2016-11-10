@@ -41,8 +41,7 @@ void Model::increment_Ccell_number(int type_p, int type_i, double number){
     double max_num_row=_cells.size();
     double max_num_column=_cells[0].size();
     if((type_p>=max_num_row)||(type_i>=max_num_column)) {
-        std::cout <<"inc error";
-        exit(1);
+        throw std::invalid_argument("inc error");
     }
     _cells[type_p][type_i] += number;
 }
@@ -67,7 +66,7 @@ void Model::output(double dt, std::ostream & os1, std::ostream & os2) const{
     os2<<dt<<"\t"<<totalCellNum<<"\n";
 }
 
-double Model::return_total_cellnumber(){
+double Model::return_total_cellnumber() const{
     double n_return=0.;
         for (const auto& x: _cells){
             for (const auto& y: (x)){

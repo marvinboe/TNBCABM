@@ -151,32 +151,20 @@ double Immune_cell_death::update_propensity(const Model& model, const Data& data
     return _propensity;
 }
 
+double Spontanious_cell_death::update_propensity(const Model& model, const Data& data){
+    double n=reactant_factor(model);
+    double n_tot=model.return_total_cellnumber();
+    // update rate
+    _propensity=_rate*n*n_tot;
+    return _propensity;
+}
+
 std::ostream& Reaction::display(std::ostream& os){
     //TODO to be implemented
     os << "#reaction: "
         <<std::endl;
     return os;
 }
-
-// Reaction* AllReactions::return_random_reaction(const Model & model){
-//
-//     std::uniform_real_distribution<double> uniform01(0.,_ratesum);
-//     double rnumb=uniform01(rng);
-//
-//     double sum=0;
-//     for (int i =0; i< _all.size(); ++i){
-//         sum +=_all[i]->rate()*model.get_Ccell_number(_all[i]->reactant_comp(),_all[i]->reactant1());
-//         
-//         if (sum > rnumb){
-//             return _all[i];
-//         }
-//         
-//
-//     }
-//
-//     return _all.back();
-//
-// }
 
 AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0){
     _all.clear();
