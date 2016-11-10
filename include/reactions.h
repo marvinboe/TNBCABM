@@ -52,7 +52,7 @@ class Reaction { //X0 ->Y0 + Y1
         friend std::ostream & operator<<(std::ostream &o, Reaction& r){return r.display(o);}
 
         /** applies this reaction. */
-        virtual bool apply(Model& model);
+        virtual bool apply(Model& model, const Data& data);
 
         /** are enough reactants available for this reaction? */
         virtual bool sufficient_reactants(const Model& model);
@@ -97,6 +97,7 @@ class Division_with_mutation : public Reaction {
         Division_with_mutation(const Division_with_mutation& other):Reaction(other){};
         virtual ~Division_with_mutation() {};
         // virtual Division_with_mutation& operator=(const Division_with_mutation& other);
+    bool apply(Model& model);
 };
 
 

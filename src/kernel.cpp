@@ -27,7 +27,7 @@ double Kernel::direct_update(double t){
         weightsum+=_all_reactions[i]->propensity();
     }
     Reaction* reaction= _all_reactions[i];
-    reaction->apply(_model);
+    reaction->apply(_model, _data);
     // std::cout <<"test "<<_model.return_Ccell_number(0,0)<<" "<<total_prop<<" "<<tau<<" "<<randchoice<<" "<<i<<std::endl;
 
     return t+tau;
