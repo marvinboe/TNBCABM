@@ -66,7 +66,7 @@ int Output::find_timepoint(double t) const{
 
 void Output::save_all_timepoints(std::string basepath){
     if (basepath.empty()) basepath="./";
-    std::cout <<"debug output: "<<basepath<<std::endl;
+    // std::cout <<"debug output: "<<basepath<<std::endl;
 
     for (auto & t: _timepoints){
         std::stringstream filnamestream;
