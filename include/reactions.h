@@ -43,7 +43,7 @@ class Reaction { //X0 ->Y0 + Y1
          * Usually propensity=rate*number_of_cells.*/
         void set_propensity(double v) {_propensity=v;}
 
-        double update_propensity(const Model& model, const Data& data);
+        virtual double update_propensity(const Model& model, const Data& data);
         unsigned used() const {return _used;}
         void incr_used() {_used += 1;}
         void reset_used() {_used = 0;}

@@ -46,7 +46,7 @@ Data::Data(ParameterHandler & parameters){
 
 
     parameters.SetValue("prolif_types","total number of proliferation phenotypes",_prolif.no_types);
-    parameters.SetValue("prolif_rate","mean proliferation rate of tumor cells",_prolif.av_rate);
+    parameters.SetValue("av_prolif_rate","mean proliferation rate of tumor cells",_prolif.av_rate);
 
     parameters.SetValue("immune_types","total number of proliferation phenotypes",_immmune.no_types);
     parameters.SetValue("mutation_rate","total mutation rate = 0.1",_mutation_prob);
@@ -54,8 +54,12 @@ Data::Data(ParameterHandler & parameters){
     parameters.SetValue("spontaneous_cell_death_rate","coeffcient of density dependent death for tumour cell",_spontaneous_cell_death_rate);
     parameters.SetValue("immune_promoted_rate","the rate of immune cells promoted by total tumour burden (need to be scaled by total tumour size)",_immune_promoted_rate);
     parameters.SetValue("immune_inhibited_rate","the rate of immune cells inhibited by total tumour burden (need to be scaled by total tumour size)",_immune_inhibited_rate);
+
     parameters.SetValue("primary_tumour_prolif_rate","the prolif type(rate) of primary tumour cells",_primary_tumour_prolif_rate);
     parameters.SetValue("primary_tumour_immune_rate","the immune type(rate) of primary tumour cells",_primary_tumour_immune_rate);
+
+    parameters.SetValue("spontaneous_cell_death_rate","death rate of micromet cells",_spontaneous_cell_death_rate);
+
     parameters.SetValue("spontaneous_immune_cell_death_rate","coeffcient of density dependent death for immune cell",_spontaneous_immune_cell_death_rate);
     parameters.SetValue("immune_cell_prolif_rate","the prolife rate of immune cells",_immune_cell_prolif_rate);
     parameters.SetValue("t_max","maximum simulation time (=100)",_runparams.tmax);

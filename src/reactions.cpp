@@ -31,6 +31,7 @@ bool Reaction::apply(Model& model, const Data& data){
 double Reaction::update_propensity(const Model& model, const Data& data){
     double n=reactant_factor(model);
     _propensity=_rate*n;
+    // std::cout <<"reaction debug: "<<_reactant1_prolif<<" "<<_reactant1_imm<<" "<<_product1_prolif<<" "<<_product1_imm<<std::endl;
     return _propensity;
 }
 
@@ -156,6 +157,7 @@ double Spontanious_cell_death::update_propensity(const Model& model, const Data&
     double n_tot=model.return_total_cellnumber();
     // update rate
     _propensity=_rate*n*n_tot;
+    // std::cout <<"debug prop: "<<_propensity<<std::endl;
     return _propensity;
 }
 

@@ -2,17 +2,22 @@
 initial_cellnumber=100
 prolif_types=10 	#number of proliferation types
 immune_types=10 	#_max_immune_types
+
 prolif_rate=0.2
+spontaneous_cell_death_rate=0.0020
 mutation_rate=0.1 	#Probability for mutation on cell division
 
+spontaneous_immune_cell_death_rate=0.0000045
+immune_cell_prolif_rate= 0.068
 
 primary_tumour_prolif_rate=0.2 
-primary_tumour_immune_rate=10
-initial_primary_tumour_cellnumber=10000 	#initial_primary_tumour_cellnumber
+primary_tumour_immune_rate=0.0014 #sensitivity of primary to immune cells
+initial_primary_tumour_cellnumber=0e9 	#initial_primary_tumour_cellnumber
 initial_anti_tumour_immune_cellnumber=1000 	#initial_anti_tumour_immune_cellnumber
 initial_pro_tumour_immune_cellnumber=1000 #_initial_pro_tumour_immune_cellnumber
 
-death_chemo=0.001
-death_intrinsic=0.0000000018
-immune_promoted_rate=0.001
-immune_inhibited_rate=0
+death_chemo=0.845 #death rate under chemo therapy
+
+
+immune_promoted_rate=0.00
+immune_inhibited_rate=8e-12
