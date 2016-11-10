@@ -38,8 +38,8 @@ double Kernel::direct_update(double t){
 
 void Kernel::deterministic(double t, double dt,double PrimaryTumourProRate,double PrimaryTumourImmRate,int c,double d_c,double delta,double ki,double kd){
 	_PrimaryTumourSize=dt*(PrimaryTumourProRate+PrimaryTumourImmRate*(_ProTumImmuneSize-_AntiTumImmuneSize)-c*d_c*PrimaryTumourProRate-delta*_PrimaryTumourSize)*_PrimaryTumourSize+_PrimaryTumourSize;
-	_AntiTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*_AntiTumImmuneSize;
-	_ProTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*ProTumImmuneSize;
+	_AntiTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*_AntiTumImmuneSize+_AntiTumImmuneSize;
+	_ProTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*_ProTumImmuneSize+_ProTumImmuneSize;
 }
 
 void Kernel::execute(){
@@ -60,6 +60,8 @@ void Kernel::execute(){
 	double c=1;//chemo
 	double d_c=0.01;//death due to chemotherapy
 	double delta=0.1;//intrinsic death
+	double ki=0;
+	double kd=0.01;
 	
 	
 	char arq1[200];//name of the file to store the total cell number over time
