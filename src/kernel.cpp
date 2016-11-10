@@ -47,7 +47,7 @@ void Kernel::execute(){
     while (t<t_max){
         //output stuff (TODO maybe extra class for that)
         while (next_t_output < t){
-            std::cout <<next_t_output<<" "<<_model.return_Ccell_number(0,0)<<std::endl;
+            std::cout <<next_t_output<<" "<<_model.return_Ccell_number(0,0)<<" "<<std::endl;
             next_t_output+=output_step;
         }
         while (t_stoch<t){

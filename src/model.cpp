@@ -32,6 +32,16 @@ void Model::set_Ccell_number(int type_p, int type_i, double number){
     _cells[type_p][type_i]=number;
 }
 
+void Model::increment_Ccell_number(int type_p, int type_i, double number){
+    double max_num_row=_cells.size();
+    double max_num_column=_cells[0].size();
+    if((type_p>=max_num_row)||(type_i>=max_num_column)) {
+        std::cout <<"inc error";
+        exit(1);
+    }
+    _cells[type_p][type_i] += number;
+}
+
 void Model::output(double dt, std::ostream & os1, std::ostream & os2) const{
 	int i,j;
 	double totalCellNum=0.;

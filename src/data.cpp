@@ -18,7 +18,7 @@ Data::Data(ParameterHandler & parameters){
     _initial_cellnumber=100;
     _max_prolif_types=10;
     _max_immune_types=10;
-    _mutation_rate = 0.1;
+    _mutation_rate = 1;
     
     //overwriting with parameter files
     
@@ -35,5 +35,7 @@ double Data::get_prolif_rate(unsigned int type) const{
     //needs to be written!
     return 0.3+type/double(_max_prolif_types);
 }
+
+
 
 
