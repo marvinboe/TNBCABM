@@ -4,6 +4,13 @@
 #include "parameter_handler.h"
 #include <vector>
 
+struct Run_parameters{
+    double tmax=100;
+    double dt=0.1;
+    int no_runs=10;
+    double output_interval=1.;
+};
+
 class Data{
     public:
         Data();
@@ -44,8 +51,10 @@ class Data{
 		double get_spontaneous_immune_cell_death_rate() const{return _spontaneous_immune_cell_death_rate;}
 		double get_immune_cell_prolif_rate() const{return _immune_cell_prolif_rate;}
 
-        double return_output_interval() const{return 1.;}
-        double return_no_runs() const{return 5;}
+        double return_output_interval() const{return _runparams.output_interval;}
+        double return_no_runs() const{return _runparams.no_runs;}
+
+        const Run_parameters & return_runparameters(){return _runparams;}
 
 
     private:
@@ -78,6 +87,8 @@ class Data{
 
         double _primary_tumour_prolif_rate;
         double _primary_tumour_immune_rate;
+
+        Run_parameters _runparams;
 
 
 };

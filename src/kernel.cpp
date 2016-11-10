@@ -45,15 +45,15 @@ void Kernel::deterministic(double dt){
     double kd=_data.get_immune_inhibited_rate();
     double rate_prim=_data.get_primary_tumour_prolif_rate();
     double rate_imm=_data.get_primary_tumour_immune_rate();
-	
-	double delta_imm=_data.get_spontaneous_immune_cell_death_rate();
-	double Prolif_imm=_data.get_immune_cell_prolif_rate();
-	
+
+    double delta_imm=_data.get_spontaneous_immune_cell_death_rate();
+    double Prolif_imm=_data.get_immune_cell_prolif_rate();
+
 
     double primary_size=_model.return_primary_size();
     double anti_size=_model.return_anti_immune();
     double pro_size=_model.return_pro_immune();
-	
+
 
     double new_primary_size=0.;
     double new_anti_size=0.;
@@ -72,9 +72,9 @@ void Kernel::deterministic(double dt){
 }
 
 void Kernel::execute(Output& output){
-    double t_max=10;
-    double dt=0.1;
-    double output_step=1.;
+    double t_max=_data.return_runparameters().tmax;
+    double dt=_data.return_runparameters().dt;
+    double output_step=_data.return_runparameters().output_interval;
     double next_t_output=0.;
 
     double t=0;
