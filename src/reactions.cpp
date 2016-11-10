@@ -68,18 +68,18 @@ bool Division_with_mutation::apply(Model& model, const Data& data){
     // if prolif mutation
     if(uniform01(rng) > 0.5){
         if(uniform01(rng) > 0.5){
-            new_prolif = std::min(_reactant1_prolif + 1, data.return_max_prolif_types());
+            new_prolif = std::min(_reactant1_prolif + 1, data.return_max_prolif_types() - 1);
         } else {
             new_prolif = std::max(_reactant1_prolif - 1, 0);
         }
-        model.set_Ccell_number(new_prolif,_reactant1_imm,1);
+        model.increment_Ccell_number(new_prolif,_reactant1_imm,1);
     } else {
         if(uniform01(rng) > 0.5){
-            new_imm = std::min(_reactant1_imm+ 1, data.return_max_prolif_types());
+            new_imm = std::min(_reactant1_imm+ 1, data.return_max_prolif_types() - 1);
         } else {
             new_imm = std::max(_reactant1_imm - 1, 0);
         }
-        model.set_Ccell_number(_reactant1_prolif,new_imm,1);
+        model.increment_Ccell_number(_reactant1_prolif,new_imm,1);
     }
     
     return true;
@@ -118,7 +118,9 @@ AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0)
         for (int j = 0; j < data.return_max_immune_types(); j++) {
             Reaction * normaldiff= new Division_without_mutation(i,j,data.get_prolif_rate(i) * (1 - data.get_mutation_rate()));
             _all.push_back(normaldiff);
-            Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_prolif_rate(i) * data.get_mutation_rate());
+            //Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_prolif_rate(i) * data.get_mutation_rate());
+            Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_mutation_rate());
+            std::cout << data.get_mutation_rate()<<" "<<data.return_max_immune_types()<<std::endl;
             _all.push_back(mutationdiff);
             Reaction * death= new Spontanious_cell_death(i,j,data.get_prolif_rate(i));
             _all.push_back(death);
