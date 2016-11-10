@@ -25,7 +25,7 @@ class Model{
 
         
         /** Returns the size of the primizry (deterministically modeled) tumor.*/
-        double return_primary_size(){return _PrimaryTumourSize;}
+        double return_primary_size() const{return _PrimaryTumourSize;}
 
         /** Returns anti tumor immune strength.*/
         double return_anti_immune()const{return _AntiTumImmuneSize;}
