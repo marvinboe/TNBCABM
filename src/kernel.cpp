@@ -66,25 +66,19 @@ void Kernel::deterministic(double dt){
 }
 
 void Kernel::execute(){
-    double t_max=1;
-    double dt=0.001;
+    double t_max=10;
+    double dt=0.1;
     double output_step=1.;
     double next_t_output=0.;
 
     double t=0;
     double t_stoch=0;
 
-
-    char arq1[200];//name of the file to store the total cell number over time
-    std::ofstream outputMatrx;
-    std::ofstream outputTotalCell;
-    outputTotalCell.open("/Users/huang01/Desktop/Micromet_TotalTumourCellNumberOverTime.txt");
-    std::ostream* outputA= &outputTotalCell;
-
     while (t<t_max){
         //output stuff (TODO maybe extra class for that)
-        while (next_t_output < t){
+        while (next_t_output <= t){
             //print matrix to new files every time
+            _output.save_data(next_t_output,_model);
             next_t_output+=output_step;
         }
         while (t_stoch<t){
@@ -93,7 +87,6 @@ void Kernel::execute(){
         t=t+dt;
         deterministic(dt);
         // std::cout<<t<<"\t"<<_model.get_primary_size()<<"\t"<<new_anti_size<<"\t"<<new_pro_size<<std::endl;
-
     }
-    outputTotalCell.close();//close the file storing the total cell number over time
+        _output.output_at_timpoint(5.,std::cout);
 }

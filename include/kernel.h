@@ -3,6 +3,7 @@
 
 #include "model.h"
 #include "reactions.h"
+#include "output.h"
 #include "misc.h"
 #include <vector>
 #include <limits>
@@ -24,6 +25,8 @@ class Kernel{
         Data _data;
         Model _model;
         AllReactions _all_reactions;
+
+        Output _output;
 
 
         static std::uniform_real_distribution<double> uniform01;
