@@ -5,6 +5,7 @@
 #include "reactions.h"
 #include "misc.h"
 #include <vector>
+#include <limits>
 
 class Kernel{
     public:
@@ -20,6 +21,7 @@ class Kernel{
         double direct_update(double t);
 
         Model _model;
+        Data _data;
 
         AllReactions _all_reactions;
 

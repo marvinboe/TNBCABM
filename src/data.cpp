@@ -2,16 +2,35 @@
 #include "data.h"
 
 Data::Data(){
-    //TODO needs to be written! with parameters!
     _initial_cellnumber=100;
     _max_prolif_types=10;
-    _max_immun_types=10;
+    _max_immune_types=10;
+}
+
+Data::Data(const Data& other){
+    _initial_cellnumber=other.return_initial_cellnumber();
+    _max_prolif_types=other.return_max_prolif_types();
+    _max_immune_types=other.return_max_immune_types();
+}
+
+Data::Data(ParameterHandler & parameters){
+    //defining defaults:
+    _initial_cellnumber=100;
+    _max_prolif_types=10;
+    _max_immune_types=10;
+
+    //overwriting with parameter files
+    parameters.SetValue("initial_cellnumber","initial number of cells = 100",_initial_cellnumber);
+    parameters.SetValue("prolif_types","total number of proliferation phenotypes",_max_prolif_types);
+    parameters.SetValue("immune_types","total number of proliferation phenotypes",_max_immune_types);
+
+    parameters.print_help(std::cout);
 
 }
 
 double Data::get_prolif_rate(unsigned int type) const{
     //needs to be written!
-    return 0.33;
+    return 0.3+type/double(_max_prolif_types);
 }
 
 

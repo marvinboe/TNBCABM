@@ -331,8 +331,8 @@ template<> void ParameterHandler::SetValue<bool>(const char* name,const char* he
 void ParameterHandler::print_help(std::ostream & os){
 
     if (help){
-        os <<" usage: './executable argument1=x argument2=y ...'"<<std::endl;
-        os <<" or './executable parameterfile argument1=x argument2=y ...'"<<std::endl;
+        os <<" usage: './program argument1=x argument2=y ...'"<<std::endl;
+        os <<" or './program parameterfile argument1=x argument2=y ...'"<<std::endl;
         os << "<argument name> \t description"<<std::endl;
         os << "-----------------------------------"<<std::endl;
         for (const auto keyhelp_pair: keys_and_help){

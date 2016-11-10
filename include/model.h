@@ -22,8 +22,7 @@ class Model{
 	    void set_immune_count(int comp, double number);
 
         /* print model data to output. */
-        void output(double dt, std::ostream & os) const;//print the output
-
+        void output(double dt, std::ostream & os1, std::ostream & os2) const;//print the output
 
     private:
 		
