@@ -46,8 +46,12 @@ class Model{
         void output(double dt, std::ostream & os1, std::ostream & os2) const;//print the output
 
         std::vector<std::vector<double>> return_all_cells() const {return _cells;}
+
+        /** Return total number of cancer cells in system. */
+        double return_total_cellnumber();
     private:
 		
+    /** _cells[type_p][type_i]*/
     std::vector<std::vector<double>> _cells;
 
     double _PrimaryTumourSize;
