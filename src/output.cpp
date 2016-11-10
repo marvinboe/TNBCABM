@@ -18,6 +18,10 @@ void Output::save_data(double t, const Model& model){
     int i=t/_output_interval;
     // std::cout <<"debug: "<<t<<" "<<i<<" "<<_timepoints.size()<<" "<<_data.size()<<std::endl;
     datatype indat=model.return_all_cells();
+    double in_primary=model.return_primary_size();
+    double in_anti=model.return_anti_immune();
+    double in_pro=model.return_pro_immune();
+    double in_totalcells=model.return_total_cellnumber();
     if (_timepoints.size()<=i){//_data[i] does not exist
         _timepoints.push_back(t);
 
@@ -28,6 +32,11 @@ void Output::save_data(double t, const Model& model){
         }
         _data.push_back(indat);
 
+        _primary_data.push_back(in_primary/_no_runs);
+        _anti_data.push_back(in_anti/_no_runs);
+        _pro_data.push_back(in_pro/_no_runs);
+        _totalcells_data.push_back(in_totalcells/_no_runs);
+
     }
     else {
         datatype& savedat=_data[i];
@@ -37,6 +46,10 @@ void Output::save_data(double t, const Model& model){
                 savedat[x][y]+=indat[x][y]/_no_runs;
             }
         }
+        _primary_data[i]+=in_primary/_no_runs;
+        _anti_data[i]+=in_anti/_no_runs;
+        _pro_data[i]+=in_pro/_no_runs;
+        _totalcells_data[i]+=in_totalcells/_no_runs;
 
     }
 
@@ -83,4 +96,12 @@ void Output::save_all_timepoints(std::string basepath){
 
     }
 
+}
+
+void Output::print_time_evol(std::ostream& os){
+        std::cout <<"#<time><totalcells><anti><pro>"<<std::endl;
+    for (int i=0 ; i< _timepoints.size(); ++i){
+        std::cout <<_timepoints[i]<<" "<<_totalcells_data[i]<<" "<<_anti_data[i]<<" "<<_pro_data[i]<<std::endl;
+
+    }
 }

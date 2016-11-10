@@ -24,9 +24,16 @@ class Output {
         /** Output state matrix at specific timepoint. */
         void save_all_timepoints(std::string basepath);
 
+        /** Print time evolution of macroscopic values to os.*/
+        void print_time_evol(std::ostream & os);
+
     private:
 
         std::vector<datatype> _data;
+        std::vector<double> _totalcells_data;
+        std::vector<double> _primary_data;
+        std::vector<double> _anti_data;
+        std::vector<double> _pro_data;
         std::vector<double> _timepoints;
 
         double _output_interval;
