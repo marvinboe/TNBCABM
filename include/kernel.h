@@ -14,7 +14,7 @@ class Kernel{
         Kernel(Data data);
 
         /** execute simulation run. */
-        void execute();
+        void execute(Output& output);
 
     private:
 
@@ -26,7 +26,6 @@ class Kernel{
         Model _model;
         AllReactions _all_reactions;
 
-        Output _output;
 
 
         static std::uniform_real_distribution<double> uniform01;

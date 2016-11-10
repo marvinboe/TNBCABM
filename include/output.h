@@ -21,6 +21,9 @@ class Output {
         /** Output state matrix at specific timepoint. */
         void output_at_timpoint(double t,std::ostream & os);
 
+        /** Output state matrix at specific timepoint. */
+        void save_all_timepoints(std::string basepath);
+
     private:
 
         std::vector<datatype> _data;

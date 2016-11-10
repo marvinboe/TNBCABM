@@ -18,8 +18,13 @@ int main(int argc,char ** argv){
     rng.seed(random_seed); //seed RNGengine
 
     Data data(parameters);
-    Kernel ker(data);
-    ker.execute();
+    Output output(data);
+    for (int i=0 ; i< data.return_no_runs(); ++i){
+
+        Kernel ker(data);
+        ker.execute(output);
+    }
+    output.save_all_timepoints("./data/");
     std::cout <<"program indeed ended"<<std::endl;
 
 }

@@ -4,13 +4,6 @@
 Output::Output(){
 
 
-    char arq1[200];//name of the file to store the total cell number over time
-    std::ofstream outputMatrx;
-    std::ofstream outputTotalCell;
-    outputTotalCell.open("/Users/huang01/Desktop/Micromet_TotalTumourCellNumberOverTime.txt");
-    std::ostream* outputA= &outputTotalCell;
-
-    outputTotalCell.close();//close the file storing the total cell number over time
     _output_interval=1.;
     _no_runs=1;
 }
@@ -69,4 +62,25 @@ int Output::find_timepoint(double t) const{
     int i =_timepoints.size()-1;
     while (i > 0 && _timepoints[i] > t) --i; 
     return i;
+}
+
+void Output::save_all_timepoints(std::string basepath){
+    if (basepath.empty()) basepath="./";
+    std::cout <<"debug output: "<<basepath<<std::endl;
+
+    for (auto & t: _timepoints){
+        std::stringstream filnamestream;
+        filnamestream <<basepath<<t<<".dat";
+        std::ofstream output;
+        output.open(filnamestream.str().c_str());
+        if (output.is_open()){
+            output_at_timpoint(t,output);
+            output.close();
+        }
+        else {
+            std::cout <<"#cannot open "<<filnamestream.str()<<std::endl;
+        }
+
+    }
+
 }

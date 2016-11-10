@@ -65,7 +65,7 @@ void Kernel::deterministic(double dt){
 
 }
 
-void Kernel::execute(){
+void Kernel::execute(Output& output){
     double t_max=10;
     double dt=0.1;
     double output_step=1.;
@@ -78,7 +78,7 @@ void Kernel::execute(){
         //output stuff (TODO maybe extra class for that)
         while (next_t_output <= t){
             //print matrix to new files every time
-            _output.save_data(next_t_output,_model);
+            output.save_data(next_t_output,_model);
             next_t_output+=output_step;
         }
         while (t_stoch<t){
