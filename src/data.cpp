@@ -22,7 +22,9 @@ Data::Data(ParameterHandler & parameters){
 	_initial_pro_tumour_immune_cellnumber=1000;
 	
     _max_prolif_types=10;
+    _start_prolif_type=5;
     _max_immune_types=10;
+    _start_immune_type=5;
     _mutation_rate = 1.1;
 	_chemo_state=0;
 	_death_chemo=1;
@@ -33,6 +35,7 @@ Data::Data(ParameterHandler & parameters){
 	_primary_tumour_prolif_types=1.;
 	_primary_tumour_immune_types=1.;
 	
+    _prolif_step = _prolif_var / (double)_start_prolif_type;
     
     //overwriting with parameter files
     
@@ -59,7 +62,7 @@ Data::Data(ParameterHandler & parameters){
 
 double Data::get_prolif_rate(unsigned int type) const{
     //needs to be written!
-    return 0.3+type/double(_max_prolif_types);
+    return (_prolif_rate - _prolif_var) + (type * _prolif_step);
 }
 
 

@@ -50,13 +50,18 @@ class Data{
 		double _initial_pro_tumour_immune_cellnumber;
 		
         int _max_prolif_types;
+        int _start_prolif_type;
         int _max_immune_types;
+        int _start_immune_type;
 		double _mutation_rate;
 		int _chemo_state;//binary number with 0 and 1
 		double _death_chemo;
 		double _death_intrinsic;//death should also be density dependent on local tumour size
 		double _immune_promoted_rate;//the rate that immune cells are promoted by total tumour
 		double _immune_inhibited_rate;//the rate that immune cells are inhibited by total tumour
+        double _prolif_rate;//initial proliferation rate
+        double _prolif_var;//allowed variance in proliferation rate
+        double _prolif_step;
 
 
 		double _primary_tumour_prolif_types;

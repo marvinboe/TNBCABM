@@ -118,9 +118,7 @@ AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0)
         for (int j = 0; j < data.return_max_immune_types(); j++) {
             Reaction * normaldiff= new Division_without_mutation(i,j,data.get_prolif_rate(i) * (1 - data.get_mutation_rate()));
             _all.push_back(normaldiff);
-            //Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_prolif_rate(i) * data.get_mutation_rate());
-            Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_mutation_rate());
-            std::cout << data.get_mutation_rate()<<" "<<data.return_max_immune_types()<<std::endl;
+            Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_prolif_rate(i) * data.get_mutation_rate());
             _all.push_back(mutationdiff);
             Reaction * death= new Spontanious_cell_death(i,j,data.get_prolif_rate(i));
             _all.push_back(death);
