@@ -56,8 +56,8 @@ Data::Data(ParameterHandler & parameters){
 	parameters.SetValue("spontaneous_cell_death_rate","coeffcient of density dependent death for tumour cell",_spontaneous_cell_death_rate);
 	parameters.SetValue("immune_promoted_rate","the rate of immune cells promoted by total tumour burden (need to be scaled by total tumour size)",_immune_promoted_rate);
 	parameters.SetValue("immune_inhibited_rate","the rate of immune cells inhibited by total tumour burden (need to be scaled by total tumour size)",_immune_inhibited_rate);
-	parameters.SetValue("primary_tumour_prolif_types","the prolif type(rate) of primary tumour cells",_primary_tumour_prolif_rate);
-	parameters.SetValue("primary_tumour_immune_types","the immune type(rate) of primary tumour cells",_primary_tumour_immune_rate);
+	parameters.SetValue("primary_tumour_prolif_rate","the prolif type(rate) of primary tumour cells",_primary_tumour_prolif_rate);
+	parameters.SetValue("primary_tumour_immune_rate","the immune type(rate) of primary tumour cells",_primary_tumour_immune_rate);
 	parameters.SetValue("spontaneous_immune_cell_death_rate","coeffcient of density dependent death for immune cell",_spontaneous_immune_cell_death_rate);
 	parameters.SetValue("immune_cell_prolif_rate","the prolife rate of immune cells",_immune_cell_prolif_rate);
    
