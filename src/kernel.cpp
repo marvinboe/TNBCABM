@@ -38,7 +38,7 @@ double Kernel::direct_update(double t){
 
 void Kernel::deterministic(double dt){
     //get the parameters
-    int c=_data.get_chemo_state();
+    int c=_model.return_chemo_state();
     double d_c=_data.get_death_chemo();
     double delta=_data.get_spontaneous_cell_death_rate();
     double ki=_data.get_immune_promoted_rate();
@@ -94,4 +94,5 @@ void Kernel::execute(Output& output){
         deterministic(dt);
         // std::cout<<t<<"\t"<<_model.get_primary_size()<<"\t"<<new_anti_size<<"\t"<<new_pro_size<<std::endl;
     }
+    output.save_at_end(t,_model);
 }

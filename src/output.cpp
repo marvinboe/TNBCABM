@@ -6,11 +6,13 @@ Output::Output(){
 
     _output_interval=1.;
     _no_runs=1;
+    _cancer_survived=0;
 }
 
 Output::Output(const Data& data){
     _output_interval=data.return_output_interval();
     _no_runs=data.return_no_runs();
+    _cancer_survived=0;
 
 }
 
@@ -56,6 +58,15 @@ void Output::save_data(double t, const Model& model){
 
 }
 
+void Output::save_at_end(double t, const Model& model){
+    double in_primary=model.return_primary_size();
+    double in_anti=model.return_anti_immune();
+    double in_pro=model.return_pro_immune();
+    double in_totalcells=model.return_total_cellnumber();
+
+    if (in_totalcells > 0) ++ _cancer_survived;
+
+}
 
 void Output::output_at_timpoint(double time,std::ostream & os){
 
@@ -101,7 +112,8 @@ void Output::save_all_timepoints(std::string basepath){
 void Output::print_time_evol(std::ostream& os){
         std::cout <<"#<time><totalcells><anti><pro>"<<std::endl;
     for (int i=0 ; i< _timepoints.size(); ++i){
-        std::cout <<_timepoints[i]<<" "<<_totalcells_data[i]<<" "<<_anti_data[i]<<" "<<_pro_data[i]<<std::endl;
+        std::cout <<_timepoints[i]<<" "<<_totalcells_data[i]<<" "<<_primary_data[i]<<" "<<_anti_data[i]<<" "<<_pro_data[i]<<std::endl;
 
     }
+    std::cout <<"#ratio of recurrence = "<<_cancer_survived/_no_runs<<std::endl;
 }

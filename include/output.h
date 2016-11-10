@@ -16,6 +16,8 @@ class Output {
 
         void save_data(double t,const Model& model);
 
+        void save_at_end(double t,const Model& model);
+
         int find_timepoint(double t) const;
 
         /** Output state matrix at specific timepoint. */
@@ -38,6 +40,8 @@ class Output {
 
         double _output_interval;
         double _no_runs;
+        
+        int _cancer_survived;
 
 
 };

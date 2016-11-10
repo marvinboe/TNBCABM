@@ -178,7 +178,7 @@ AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0)
             _all.push_back(mutationdiff);
             Reaction * Immunemutationdiff= new Immune_division_with_mutation(i,j,(data.get_initial_pro_tumour_immune_cellnumber() * data.get_immune_sensitivity_rate(j)) * data.get_mutation_rate());
             _all.push_back(Immunemutationdiff);
-            Reaction * chemo_death= new Chemotherapy_cell_death(i,j, data.get_chemo_state() * data.get_death_chemo() * data.get_prolif_rate(i));
+            Reaction * chemo_death= new Chemotherapy_cell_death(i,j, data.return_chemo_state(0.) * data.get_death_chemo() * data.get_prolif_rate(i));
             _all.push_back(chemo_death);
             Reaction * immune_death= new Immune_cell_death(i,j, data.get_initial_anti_tumour_immune_cellnumber()  * data.get_immune_sensitivity_rate(j));
             _all.push_back(immune_death);
