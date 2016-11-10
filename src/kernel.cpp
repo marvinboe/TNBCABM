@@ -76,12 +76,6 @@ void Kernel::execute(){
         //output stuff (TODO maybe extra class for that)
         while (next_t_output < t){
 			//print matrix to new files every time
-			std::sprintf(arq1,"/Users/huang01/Desktop/Micromet_TumourCellNumberForEachPhenotype_MatrixFormat_Time_%d.txt",(int)next_t_output);
-			//std::cout<<arq1<<"\n";
-			outputMatrx.open(arq1);
-			std::ostream* outputB= &outputMatrx;
-			_model.output(next_t_output,*outputB,*outputA);
-			outputMatrx.close();//close the file storing the matrix
             next_t_output+=output_step;
         }
         while (t_stoch<t){
