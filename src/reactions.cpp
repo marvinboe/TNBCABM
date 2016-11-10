@@ -1,7 +1,7 @@
 #include "reactions.h"
 
 
-bool Reaction::apply(Model& model){
+bool Reaction::apply(Model& model, const Data& data){
 
 
     if ((_reactant1_prolif >=0)&&(_reactant1_imm >=0)){
@@ -55,6 +55,36 @@ bool Reaction::sufficient_reactants( const Model& model){
     return (model.return_Ccell_number(reactant1_p(),reactant1_i())>0);
 }
 
+bool Division_with_mutation::apply(Model& model, const Data& data){
+    std::uniform_real_distribution<double> uniform01(0.,1.);
+    int new_prolif;
+    int new_imm;
+    
+    if ((_reactant1_prolif >=0)&&(_reactant1_imm >=0)){
+        int react1=model.return_Ccell_number(_reactant1_prolif,_reactant1_imm);
+        model.set_Ccell_number(_reactant1_prolif,_reactant1_imm,react1-1);
+    }
+    
+    // if prolif mutation
+    if(uniform01(rng) > 0.5){
+        if(uniform01(rng) > 0.5){
+            new_prolif = std::min(_reactant1_prolif + 1, data.return_max_prolif_types());
+        } else {
+            new_prolif = std::max(_reactant1_prolif - 1, 0);
+        }
+        model.set_Ccell_number(new_prolif,_reactant1_imm,1);
+    } else {
+        if(uniform01(rng) > 0.5){
+            new_imm = std::min(_reactant1_imm+ 1, data.return_max_prolif_types());
+        } else {
+            new_imm = std::max(_reactant1_imm - 1, 0);
+        }
+        model.set_Ccell_number(_reactant1_prolif,new_imm,1);
+    }
+    
+    return true;
+}
+
 std::ostream& Reaction::display(std::ostream& os){
     //TODO to be implemented
     os << "#reaction: "
@@ -86,8 +116,10 @@ AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0)
     _all.clear();
     for (int i=0; i < data.return_max_prolif_types(); i++) {
         for (int j = 0; j < data.return_max_immune_types(); j++) {
-            Reaction * normaldiff= new Division_without_mutation(i,j,data.get_prolif_rate(i));
+            Reaction * normaldiff= new Division_without_mutation(i,j,data.get_prolif_rate(i) * (1 - data.get_mutation_rate()));
             _all.push_back(normaldiff);
+            Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_prolif_rate(i) * data.get_mutation_rate());
+            _all.push_back(mutationdiff);
             Reaction * death= new Spontanious_cell_death(i,j,data.get_prolif_rate(i));
             _all.push_back(death);
         }

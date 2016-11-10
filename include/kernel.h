@@ -21,6 +21,7 @@ class Kernel{
         double direct_update(double t);
 
         Model _model;
+        Data _data;
 
         AllReactions _all_reactions;
 

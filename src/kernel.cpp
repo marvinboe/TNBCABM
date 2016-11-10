@@ -3,9 +3,8 @@
 #include <fstream>
 #include <ostream>  
 
-Kernel::Kernel(Data data):_model(data),_all_reactions(_model,data){
+Kernel::Kernel(Data data):_data(data),_model(data),_all_reactions(_model,data){
     // and here some even more funny stuff will come in
-
         
 }
 
@@ -31,7 +30,7 @@ double Kernel::direct_update(double t){
         wheightsum+=_all_reactions[i]->propensity();
     }
     Reaction* reaction= _all_reactions[i];
-    reaction->apply(_model);
+    reaction->apply(_model, _data);
     // std::cout <<"test "<<_model.return_Ccell_number(0,0)<<" "<<total_prop<<" "<<tau<<" "<<randchoice<<" "<<i<<std::endl;
 
     return t+tau;

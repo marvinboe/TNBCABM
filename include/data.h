@@ -1,11 +1,14 @@
 #ifndef __DATA_H__
 #define __DATA_H__ 
 
+#include "parameter_handler.h"
 #include <vector>
 
 class Data{
     public:
         Data();
+        Data(const Data&); 
+        Data(ParameterHandler& parameters);
 
         double get_prolif_rate(unsigned int type) const;
         double set_prolif_rate(unsigned int type, double rate);
@@ -16,10 +19,10 @@ class Data{
         double return_initial_cellnumber() const { return _initial_cellnumber;}
 
         int return_max_prolif_types() const { return _max_prolif_types;}
-        int return_max_immune_types() const { return _max_immun_types;}
+        int return_max_immune_types() const { return _max_immune_types;}
 
         void set_max_prolif_types(int v){ _max_prolif_types=v;}
-        void set_max_immun_types(int v){ _max_immun_types=v;}
+        void set_max_immun_types(int v){ _max_immune_types=v;}
 
     private:
         std::vector<double> prolif_rates;
@@ -29,7 +32,7 @@ class Data{
         double _initial_cellnumber;
 
         int _max_prolif_types;
-        int _max_immun_types;
+        int _max_immune_types;
 
 
 };

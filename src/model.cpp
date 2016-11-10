@@ -19,6 +19,9 @@ Model::Model(const Data& data){
 
 double Model::return_Ccell_number(int type_p, int type_i) const
 {
+	double max_num_row=_cells.size();
+	double max_num_column=_cells[0].size();
+	if((type_p>=max_num_row)||(type_i>=max_num_column)) exit(1); 
     return _cells[type_p][type_i];
 }
 
