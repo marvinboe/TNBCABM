@@ -68,18 +68,18 @@ bool Division_with_mutation::apply(Model& model, const Data& data){
     // if prolif mutation
     if(uniform01(rng) > 0.5){
         if(uniform01(rng) > 0.5){
-            new_prolif = std::min(_reactant1_prolif + 1, data.return_max_prolif_types())
+            new_prolif = std::min(_reactant1_prolif + 1, data.return_max_prolif_types());
         } else {
-            new_prolif = std::max(_reactant1_prolif - 1, 0)
+            new_prolif = std::max(_reactant1_prolif - 1, 0);
         }
-        model.set_Ccell_number(new_prolif,_reactant1_imm);
+        model.set_Ccell_number(new_prolif,_reactant1_imm,1);
     } else {
         if(uniform01(rng) > 0.5){
-            new_imm = std::min(_reactant1_imm+ 1, data.return_max_prolif_types())
+            new_imm = std::min(_reactant1_imm+ 1, data.return_max_prolif_types());
         } else {
-            new_imm = std::max(_reactant1_imm - 1, 0)
+            new_imm = std::max(_reactant1_imm - 1, 0);
         }
-        model.set_Ccell_number(_reactant1_prolif,new_imm);
+        model.set_Ccell_number(_reactant1_prolif,new_imm,1);
     }
     
     return true;

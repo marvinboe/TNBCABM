@@ -97,7 +97,7 @@ class Division_with_mutation : public Reaction {
         Division_with_mutation(const Division_with_mutation& other):Reaction(other){};
         virtual ~Division_with_mutation() {};
         // virtual Division_with_mutation& operator=(const Division_with_mutation& other);
-    bool apply(Model& model);
+    bool apply(Model& model, const Data& data);
 };
 
 
