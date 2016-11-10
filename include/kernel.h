@@ -24,10 +24,10 @@ class Kernel{
 		double _AntiTumImmuneSize;
 		double _ProTumImmuneSize;
 
-        Model _model;
         Data _data;
-
+        Model _model;
         AllReactions _all_reactions;
+
 
         static std::uniform_real_distribution<double> uniform01;
 

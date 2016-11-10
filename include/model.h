@@ -26,6 +26,7 @@ class Model{
         /* print model data to output. */
         void output(double dt, std::ostream & os1, std::ostream & os2) const;//print the output
 
+        std::vector<std::vector<double>> return_all_cells() const {return _cells;}
     private:
 		
     std::vector<std::vector<double>> _cells;
