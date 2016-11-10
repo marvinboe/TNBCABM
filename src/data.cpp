@@ -18,11 +18,14 @@ Data::Data(ParameterHandler & parameters){
     _initial_cellnumber=100;
     _max_prolif_types=10;
     _max_immune_types=10;
-
+    _mutation_rate = 0.1;
+    
     //overwriting with parameter files
+    
     parameters.SetValue("initial_cellnumber","initial number of cells = 100",_initial_cellnumber);
     parameters.SetValue("prolif_types","total number of proliferation phenotypes",_max_prolif_types);
     parameters.SetValue("immune_types","total number of proliferation phenotypes",_max_immune_types);
+    parameters.SetValue("mutation_rate","total mutation rate = 0.1",_mutation_rate);
 
     parameters.print_help(std::cout);
 
