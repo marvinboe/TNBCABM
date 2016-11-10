@@ -14,7 +14,7 @@ double Kernel::direct_update(double t){
 
     double total_prop=0.;
     for (std::vector<Reaction*>::iterator it=_all_reactions.begin(); it!=_all_reactions.end(); ++it){
-        total_prop+=(*it)->update_propensity(_model);
+        total_prop+=(*it)->update_propensity(_model, _data);
     }
     if (total_prop<=1e-20) return std::numeric_limits<double>::infinity();
 
