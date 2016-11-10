@@ -83,6 +83,25 @@ class Division_without_mutation : public Reaction {
         virtual ~Division_without_mutation() {};
 };
 
+
+class Division_with_mutation : public Reaction {
+public:
+    Division_with_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,-1,-1,rate){};
+    Division_with_mutation(const Division_with_mutation& other):Reaction(other){};
+    virtual ~Division_with_mutation() {};
+    // virtual Division_with_mutation& operator=(const Division_with_mutation& other);
+    bool apply(Model& model, const Data& data);
+};
+
+class Chemotherapy_cell_death : public Reaction {
+public:
+    Chemotherapy_cell_death(int type_p, int type_i,double rate):Reaction(type_p,type_i,-1,-1,-1,-1,rate){};
+    Chemotherapy_cell_death(const Chemotherapy_cell_death& other):Reaction(other){};
+    virtual ~Chemotherapy_cell_death(){};
+    
+};
+
+
 class Spontanious_cell_death : public Reaction {
     public:
     Spontanious_cell_death(int type_p, int type_i,double rate):Reaction(type_p,type_i,-1,-1,-1,-1,rate){};
@@ -90,16 +109,6 @@ class Spontanious_cell_death : public Reaction {
     virtual ~Spontanious_cell_death(){};
 
 };
-
-class Division_with_mutation : public Reaction {
-    public:
-        Division_with_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,-1,-1,rate){};
-        Division_with_mutation(const Division_with_mutation& other):Reaction(other){};
-        virtual ~Division_with_mutation() {};
-        // virtual Division_with_mutation& operator=(const Division_with_mutation& other);
-    bool apply(Model& model, const Data& data);
-};
-
 
 
 class AllReactions  {
