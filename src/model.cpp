@@ -13,7 +13,7 @@ Model::Model(const Data& data){
     _cells.push_back(row);
     }
 	//define the first phenotype:  type_p=1 and type_i=1 with an initial size of n
-	_cells[0][0]=n;
+	_cells[data.return_start_prolif_type()][data.return_start_immune_type()]=n;
 }
 
 
