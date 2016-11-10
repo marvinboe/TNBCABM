@@ -40,15 +40,20 @@ void Kernel::deterministic(double dt){
     //get the parameters
     int c=_data.get_chemo_state();
     double d_c=_data.get_death_chemo();
-    double delta=_data.get_death_intrinsic();
+    double delta=_data.get_spontaneous_cell_death_rate();
     double ki=_data.get_immune_promoted_rate();
     double kd=_data.get_immune_inhibited_rate();
     double rate_prim=_data.get_primary_tumour_prolif_rate();
     double rate_imm=_data.get_primary_tumour_immune_rate();
+	
+	double delta_imm=_data.get_spontaneous_immune_cell_death_rate();
+	double Prolif_imm=_data.get_immune_cell_prolif_rate();
+	
 
     double primary_size=_model.return_primary_size();
     double anti_size=_model.return_anti_immune();
     double pro_size=_model.return_pro_immune();
+	
 
     double new_primary_size=0.;
     double new_anti_size=0.;
@@ -56,8 +61,8 @@ void Kernel::deterministic(double dt){
 
     //update the primary tumour size as well as the anti- and pro_ tumour immune cell sizes
     new_primary_size=primary_size+dt*primary_size*(rate_prim+rate_imm*(pro_size-anti_size)-c*d_c*rate_prim-delta*primary_size);
-    new_anti_size=anti_size+dt*anti_size*(primary_size*(ki-kd)-c*d_c);
-    new_pro_size=pro_size+dt*pro_size*(primary_size*(ki-kd)-c*d_c);
+    new_anti_size=anti_size+dt*anti_size*(Prolif_imm+primary_size*(ki-kd)-c*d_c-delta_imm*anti_size);
+    new_pro_size=pro_size+dt*pro_size*(Prolif_imm+primary_size*(ki-kd)-c*d_c-delta_imm*anti_size);
 
     // std::cout <<new_primary_size<<" "<<(rate_prim+rate_imm*(pro_size-anti_size)-c*d_c*rate_prim-delta*primary_size)<<" "<<new_anti_size<<" "<<new_pro_size<<std::endl;
     _model.set_primary_size(new_primary_size);

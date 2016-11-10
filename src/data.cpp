@@ -22,7 +22,6 @@ Data::Data(ParameterHandler & parameters){
     _mutation_rate = 1.1;
 	_chemo_state=1;
 	_death_chemo=0.5;
-    _death_intrinsic=0.1;
 	_immune_promoted_rate=0;
 	_immune_inhibited_rate=0.01;
     _prolif_rate=0.3;
@@ -33,6 +32,8 @@ Data::Data(ParameterHandler & parameters){
     _immune_sensitivity_step = _immune_sensitivity_var / (double)_start_immune_type;
     
     _spontaneous_cell_death_rate=0.3;
+	_spontaneous_immune_cell_death_rate=0.3;
+	_immune_cell_prolif_rate=0.3;
 	
 	_primary_tumour_prolif_rate=1.;
 	_primary_tumour_immune_rate=1.;
@@ -52,11 +53,13 @@ Data::Data(ParameterHandler & parameters){
     parameters.SetValue("mutation_rate","total mutation rate = 0.1",_mutation_rate);
 	parameters.SetValue("chemo_state","whether chemotherapy is applied (0/1)",_chemo_state);
 	parameters.SetValue("death_chemo","death rate due to chemotherapy (need to be scaled by prolif rate)",_death_chemo);
-	parameters.SetValue("death_intrinsic","coeffcient of density dependent death",_death_intrinsic);
+	parameters.SetValue("spontaneous_cell_death_rate","coeffcient of density dependent death for tumour cell",_spontaneous_cell_death_rate);
 	parameters.SetValue("immune_promoted_rate","the rate of immune cells promoted by total tumour burden (need to be scaled by total tumour size)",_immune_promoted_rate);
 	parameters.SetValue("immune_inhibited_rate","the rate of immune cells inhibited by total tumour burden (need to be scaled by total tumour size)",_immune_inhibited_rate);
 	parameters.SetValue("primary_tumour_prolif_types","the prolif type(rate) of primary tumour cells",_primary_tumour_prolif_rate);
 	parameters.SetValue("primary_tumour_immune_types","the immune type(rate) of primary tumour cells",_primary_tumour_immune_rate);
+	parameters.SetValue("spontaneous_immune_cell_death_rate","coeffcient of density dependent death for immune cell",_spontaneous_immune_cell_death_rate);
+	parameters.SetValue("immune_cell_prolif_rate","the prolife rate of immune cells",_immune_cell_prolif_rate);
    
     parameters.print_help(std::cout);
 

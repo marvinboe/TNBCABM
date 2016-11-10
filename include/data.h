@@ -34,7 +34,6 @@ class Data{
 
         int get_chemo_state() const {return _chemo_state;}
         double get_death_chemo() const {return _death_chemo;}
-        double get_death_intrinsic() const {return _death_intrinsic;}
         double get_immune_promoted_rate() const {return _immune_promoted_rate;}
         double get_immune_inhibited_rate() const {return _immune_inhibited_rate;}
 
@@ -42,6 +41,8 @@ class Data{
         double get_primary_tumour_prolif_rate() const{return _primary_tumour_prolif_rate;}
         double get_primary_tumour_immune_rate() const{return _primary_tumour_immune_rate;}
         double get_spontaneous_cell_death_rate() const{return _spontaneous_cell_death_rate;}
+		double get_spontaneous_immune_cell_death_rate() const{return _spontaneous_immune_cell_death_rate;}
+		double get_immune_cell_prolif_rate() const{return _immune_cell_prolif_rate;}
 
         double return_output_interval() const{return 1.;}
         double return_no_runs() const{return 5;}
@@ -62,7 +63,6 @@ class Data{
         double _mutation_rate;
         int _chemo_state;//binary number with 0 and 1
         double _death_chemo;
-        double _death_intrinsic;//death should also be density dependent on local tumour size
         double _immune_promoted_rate;//the rate that immune cells are promoted by total tumour
         double _immune_inhibited_rate;//the rate that immune cells are inhibited by total tumour
         double _prolif_rate;//initial proliferation rate
@@ -72,6 +72,8 @@ class Data{
         double _immune_sensitivity_var;
         double _immune_sensitivity_step;
         double _spontaneous_cell_death_rate;
+		double _spontaneous_immune_cell_death_rate;
+		double _immune_cell_prolif_rate;
 
 
         double _primary_tumour_prolif_rate;
