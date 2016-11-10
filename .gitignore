@@ -7,5 +7,7 @@ seed.out
 cscope.out
 tags
 outinput/
+*.dat
+*.txt
 .ycm*
 .DS*
