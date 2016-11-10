@@ -42,6 +42,9 @@ class Data{
         double get_primary_tumour_immune_rate() const{return _primary_tumour_immune_rate;}
         double get_spontaneous_cell_death_rate() const{return _spontaneous_cell_death_rate;}
 
+        double return_output_interval() const{return 1.;}
+        double return_no_runs() const{return 5;}
+
 
     private:
         std::vector<double> prolif_rates;
