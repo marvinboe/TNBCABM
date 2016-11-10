@@ -3,6 +3,7 @@
 
 #include "model.h"
 #include "reactions.h"
+#include "output.h"
 #include "misc.h"
 #include <vector>
 #include <limits>
@@ -13,20 +14,18 @@ class Kernel{
         Kernel(Data data);
 
         /** execute simulation run. */
-        void execute();
+        void execute(Output& output);
 
     private:
 
         /** actual algorithm step. */
         double direct_update(double t);
-		void deterministic(double t, double dt);
-		double _PrimaryTumourSize;
-		double _AntiTumImmuneSize;
-		double _ProTumImmuneSize;
+        void deterministic(double dt);
 
         Data _data;
         Model _model;
         AllReactions _all_reactions;
+
 
 
         static std::uniform_real_distribution<double> uniform01;

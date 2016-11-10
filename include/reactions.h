@@ -43,7 +43,7 @@ class Reaction { //X0 ->Y0 + Y1
          * Usually propensity=rate*number_of_cells.*/
         void set_propensity(double v) {_propensity=v;}
 
-        double update_propensity(const Model& model);
+        double update_propensity(const Model& model, const Data& data);
         unsigned used() const {return _used;}
         void incr_used() {_used += 1;}
         void reset_used() {_used = 0;}
@@ -83,23 +83,59 @@ class Division_without_mutation : public Reaction {
         virtual ~Division_without_mutation() {};
 };
 
+class Immune_division_without_mutation : public Reaction {
+public:
+    Immune_division_without_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,type_p,type_i,rate){};
+    Immune_division_without_mutation(const Immune_division_without_mutation& other):Reaction(other){};
+    virtual ~Immune_division_without_mutation() {};
+    double update_propensity(const Model& model, const Data& data);
+};
+
+class Division_with_mutation : public Reaction {
+public:
+    Division_with_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,-1,-1,rate){};
+    Division_with_mutation(const Division_with_mutation& other):Reaction(other){};
+    virtual ~Division_with_mutation() {};
+    // virtual Division_with_mutation& operator=(const Division_with_mutation& other);
+    bool apply(Model& model, const Data& data);
+};
+
+class Immune_division_with_mutation : public Reaction {
+public:
+    Immune_division_with_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,-1,-1,rate){};
+    Immune_division_with_mutation(const Immune_division_with_mutation& other):Reaction(other){};
+    virtual ~Immune_division_with_mutation() {};
+    // virtual Immune_division_with_mutation& operator=(const Immune_division_with_mutation& other);
+    double update_propensity(const Model& model, const Data& data);
+    bool apply(Model& model, const Data& data);
+};
+
+
+class Chemotherapy_cell_death : public Reaction {
+public:
+    Chemotherapy_cell_death(int type_p, int type_i,double rate):Reaction(type_p,type_i,-1,-1,-1,-1,rate){};
+    Chemotherapy_cell_death(const Chemotherapy_cell_death& other):Reaction(other){};
+    virtual ~Chemotherapy_cell_death(){};
+    double update_propensity(const Model& model, const Data& data);
+};
+
+class Immune_cell_death : public Reaction {
+public:
+    Immune_cell_death(int type_p, int type_i,double rate):Reaction(type_p,type_i,-1,-1,-1,-1,rate){};
+    Immune_cell_death(const Immune_cell_death& other):Reaction(other){};
+    virtual ~Immune_cell_death(){};
+    double update_propensity(const Model& model, const Data& data);
+};
+
+
 class Spontanious_cell_death : public Reaction {
     public:
     Spontanious_cell_death(int type_p, int type_i,double rate):Reaction(type_p,type_i,-1,-1,-1,-1,rate){};
     Spontanious_cell_death(const Spontanious_cell_death& other):Reaction(other){};
     virtual ~Spontanious_cell_death(){};
+    double update_propensity(const Model& model, const Data& data);
 
 };
-
-class Division_with_mutation : public Reaction {
-    public:
-        Division_with_mutation(int type_p, int type_i, double rate):Reaction(type_p,type_i,type_p,type_i,-1,-1,rate){};
-        Division_with_mutation(const Division_with_mutation& other):Reaction(other){};
-        virtual ~Division_with_mutation() {};
-        // virtual Division_with_mutation& operator=(const Division_with_mutation& other);
-    bool apply(Model& model, const Data& data);
-};
-
 
 
 class AllReactions  {

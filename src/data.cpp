@@ -7,12 +7,6 @@ Data::Data(){
     _max_immune_types=10;
 }
 
-Data::Data(const Data& other){
-    _initial_cellnumber=other.return_initial_cellnumber();
-    _max_prolif_types=other.return_max_prolif_types();
-    _max_immune_types=other.return_max_immune_types();
-    _mutation_rate=other.get_mutation_rate();
-}
 
 Data::Data(ParameterHandler & parameters){
     //defining defaults:
@@ -26,19 +20,24 @@ Data::Data(ParameterHandler & parameters){
     _max_immune_types=10;
     _start_immune_type=5;
     _mutation_rate = 1.1;
-	_chemo_state=0;
-	_death_chemo=1;
+	_chemo_state=1;
+	_death_chemo=0.5;
     _death_intrinsic=0.1;
 	_immune_promoted_rate=0;
 	_immune_inhibited_rate=0.01;
     _prolif_rate=0.3;
     _prolif_var=0.2;
+    _prolif_step = _prolif_var / (double)_start_prolif_type;
+    _immune_sensitivity_rate = 0.0001;
+    _immune_sensitivity_var = 0.00005;
+    _immune_sensitivity_step = _immune_sensitivity_var / (double)_start_immune_type;
+    
     _spontaneous_cell_death_rate=0.3;
 	
-	_primary_tumour_prolif_types=1.;
-	_primary_tumour_immune_types=1.;
+	_primary_tumour_prolif_rate=1.;
+	_primary_tumour_immune_rate=1.;
 	
-    _prolif_step = _prolif_var / (double)_start_prolif_type;
+    
     
     //overwriting with parameter files
     
@@ -56,8 +55,8 @@ Data::Data(ParameterHandler & parameters){
 	parameters.SetValue("death_intrinsic","coeffcient of density dependent death",_death_intrinsic);
 	parameters.SetValue("immune_promoted_rate","the rate of immune cells promoted by total tumour burden (need to be scaled by total tumour size)",_immune_promoted_rate);
 	parameters.SetValue("immune_inhibited_rate","the rate of immune cells inhibited by total tumour burden (need to be scaled by total tumour size)",_immune_inhibited_rate);
-	parameters.SetValue("primary_tumour_prolif_types","the prolif type(rate) of primary tumour cells",_primary_tumour_prolif_types);
-	parameters.SetValue("primary_tumour_immune_types","the immune type(rate) of primary tumour cells",_primary_tumour_immune_types);
+	parameters.SetValue("primary_tumour_prolif_types","the prolif type(rate) of primary tumour cells",_primary_tumour_prolif_rate);
+	parameters.SetValue("primary_tumour_immune_types","the immune type(rate) of primary tumour cells",_primary_tumour_immune_rate);
    
     parameters.print_help(std::cout);
 
@@ -65,6 +64,10 @@ Data::Data(ParameterHandler & parameters){
 
 double Data::get_prolif_rate(unsigned int type) const{
     return (_prolif_rate - _prolif_var) + (type * _prolif_step);
+}
+
+double Data::get_immune_sensitivity_rate(unsigned int type) const{
+    return (_immune_sensitivity_rate - _immune_sensitivity_var) + (type * _immune_sensitivity_step);
 }
 
 

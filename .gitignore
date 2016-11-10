@@ -1,10 +1,13 @@
 Doxyfile
 build/
 doc/
+data/
 program
 seed.out
 cscope.out
 tags
 outinput/
+*.dat
+*.txt
 .ycm*
 .DS*
