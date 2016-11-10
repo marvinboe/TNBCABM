@@ -32,7 +32,6 @@ double Kernel::direct_update(double t){
     Reaction* reaction= _all_reactions[i];
     reaction->apply(_model, _data);
     // std::cout <<"test "<<_model.return_Ccell_number(0,0)<<" "<<total_prop<<" "<<tau<<" "<<randchoice<<" "<<i<<std::endl;
-
     return t+tau;
 }
 
@@ -46,10 +45,15 @@ void Kernel::deterministic(double t, double dt){
 	double PrimaryTumourProRate=_data.get_primary_tumour_prolif_types();
 	double PrimaryTumourImmRate=_data.get_primary_tumour_immune_types();
 	
+	
+	
+	
 	//update the primary tumour size as well as the anti- and pro_ tumour immune cell sizes
 	_PrimaryTumourSize=dt*(PrimaryTumourProRate+PrimaryTumourImmRate*(_ProTumImmuneSize-_AntiTumImmuneSize)-c*d_c*PrimaryTumourProRate-delta*_PrimaryTumourSize)*_PrimaryTumourSize+_PrimaryTumourSize;
 	_AntiTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*_AntiTumImmuneSize+_AntiTumImmuneSize;
 	_ProTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*_ProTumImmuneSize+_ProTumImmuneSize;
+	
+	//std::cout<<t<<"\t"<<_PrimaryTumourSize<<"\t"<<_AntiTumImmuneSize<<"\t"<<_AntiTumImmuneSize<<"\n";
 }
 
 void Kernel::execute(){
@@ -64,7 +68,6 @@ void Kernel::execute(){
 	_PrimaryTumourSize=_data.get_initial_primary_tumour_cellnumber();
 	_AntiTumImmuneSize=_data.get_initial_anti_tumour_immune_cellnumber();
 	_ProTumImmuneSize=_data.get_initial_pro_tumour_immune_cellnumber();
-	
 	
 	char arq1[200];//name of the file to store the total cell number over time
 	std::ofstream outputMatrx;

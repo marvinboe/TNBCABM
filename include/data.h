@@ -31,10 +31,10 @@ class Data{
 		double get_initial_pro_tumour_immune_cellnumber() const {return _initial_pro_tumour_immune_cellnumber;}
 		
 		int get_chemo_state() const {return _chemo_state;}
-		double get_death_chemo() const{return _death_chemo;}
-		double get_death_intrinsic() const{return _death_intrinsic;}
-		double get_immune_promoted_rate() const{return _immune_promoted_rate;}
-		double get_immune_inhibited_rate() const{return _immune_inhibited_rate;}
+		double get_death_chemo() const {return _death_chemo; std::cout<<"test";}
+		double get_death_intrinsic() const {return _death_intrinsic;}
+		double get_immune_promoted_rate() const {return _immune_promoted_rate;}
+		double get_immune_inhibited_rate() const {return _immune_inhibited_rate;}
 
 
 		double get_primary_tumour_prolif_types() const{return _primary_tumour_prolif_types;}
