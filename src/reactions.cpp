@@ -88,7 +88,16 @@ bool Division_with_mutation::apply(Model& model, const Data& data){
 double Chemotherapy_cell_death::update_propensity(const Model& model, const Data& data){
     double n=reactant_factor(model);
     // update rate
-    _rate = data.get_chemo_state() * data.get_death_chemo() * data.get_prolif_rate(_reactant1_prolif);
+    // TBD take current chemo state from model
+    _rate = model.return_chemo_state() * data.get_death_chemo() * data.get_prolif_rate(_reactant1_prolif);
+    _propensity=_rate*n;
+    return _propensity;
+}
+
+double Immune_cell_death::update_propensity(const Model& model, const Data& data){
+    double n=reactant_factor(model);
+    // update rate
+    _rate = model.return_anti_immune() * data.get_immune_sensitivity_rate(_reactant1_imm);
     _propensity=_rate*n;
     return _propensity;
 }
@@ -129,9 +138,12 @@ AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0)
             Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_prolif_rate(i) * data.get_mutation_rate());
             _all.push_back(mutationdiff);
             Reaction * chemo_death= new Chemotherapy_cell_death(i,j, data.get_chemo_state() * data.get_death_chemo() * data.get_prolif_rate(i));
+            std::cout << data.get_chemo_state() * data.get_death_chemo() * data.get_prolif_rate(i) << std::endl;
             _all.push_back(chemo_death);
-            Reaction * death= new Spontanious_cell_death(i,j, data.get_spontaneous_cell_death_rate());
-            _all.push_back(death);
+            Reaction * immune_death= new Immune_cell_death(i,j, data.get_initial_anti_tumour_immune_cellnumber()  * data.get_immune_sensitivity_rate(j));
+            _all.push_back(immune_death);
+            //Reaction * death= new Spontanious_cell_death(i,j, data.get_spontaneous_cell_death_rate());
+            //_all.push_back(death);
         }
     }
 

@@ -11,6 +11,8 @@ class Data{
 
         double get_prolif_rate(unsigned int type) const;
         double set_prolif_rate(unsigned int type, double rate);
+    
+        double get_immune_sensitivity_rate(unsigned int type) const;
 
         double get_mutation_rate() const {return _mutation_rate;}
         void set_mutation_rate(double v){_mutation_rate=v;}
@@ -65,6 +67,9 @@ class Data{
         double _prolif_rate;//initial proliferation rate
         double _prolif_var;//allowed variance in proliferation rate
         double _prolif_step;
+        double _immune_sensitivity_rate;
+        double _immune_sensitivity_var;
+        double _immune_sensitivity_step;
         double _spontaneous_cell_death_rate;
 
 

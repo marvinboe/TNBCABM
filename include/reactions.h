@@ -101,6 +101,14 @@ public:
     double update_propensity(const Model& model, const Data& data);
 };
 
+class Immune_cell_death : public Reaction {
+public:
+    Immune_cell_death(int type_p, int type_i,double rate):Reaction(type_p,type_i,-1,-1,-1,-1,rate){};
+    Immune_cell_death(const Immune_cell_death& other):Reaction(other){};
+    virtual ~Immune_cell_death(){};
+    double update_propensity(const Model& model, const Data& data);
+};
+
 
 class Spontanious_cell_death : public Reaction {
     public:

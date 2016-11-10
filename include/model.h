@@ -28,10 +28,12 @@ class Model{
         double return_primary_size(){return _PrimaryTumourSize;}
 
         /** Returns anti tumor immune strength.*/
-        double return_anti_immune(){return _AntiTumImmuneSize;}
+        double return_anti_immune()const{return _AntiTumImmuneSize;}
 
         /** Returns pro tumor immune strength.*/
-        double return_pro_immune(){return _ProTumImmuneSize;}
+        double return_pro_immune()const{return _ProTumImmuneSize;}
+    
+        double return_chemo_state()const{return _ChemoState;}
 
         /** Sets the size of the primizry (deterministically modeled) tumor.*/
         void set_primary_size(double v){_PrimaryTumourSize=v;}
@@ -57,6 +59,7 @@ class Model{
     double _PrimaryTumourSize;
     double _AntiTumImmuneSize;
     double _ProTumImmuneSize;
+    double _ChemoState;
 		
 
 
