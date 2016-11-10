@@ -17,6 +17,8 @@ class Model{
         /** sets the number of cancer cells with proliferation type type_p
          * and immun type type_i.*/
         void set_Ccell_number(int type_p, int type_i, double number); // update the cell numbers for type i in compartment comp
+    
+        void increment_Ccell_number(int type_p, int type_i, double number);
 
         double get_immune_count(int comp) const;
 	    void set_immune_count(int comp, double number);

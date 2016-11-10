@@ -62,7 +62,7 @@ void Kernel::execute(){
 			outputMatrx.open(arq1);
 			std::ostream* outputB= &outputMatrx;
 			_model.output(next_t_output,*outputB,*outputA);
-			outputMatrx.close();//close the file storing the matrix 
+			outputMatrx.close();//close the file storing the matrix
             next_t_output+=output_step;
         }
         while (t_stoch<t){
