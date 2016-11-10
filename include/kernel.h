@@ -20,10 +20,10 @@ class Kernel{
         /** actual algorithm step. */
         double direct_update(double t);
 
-        Model _model;
         Data _data;
-
+        Model _model;
         AllReactions _all_reactions;
+
 
         static std::uniform_real_distribution<double> uniform01;
 
