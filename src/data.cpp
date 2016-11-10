@@ -5,7 +5,12 @@ Data::Data(){
     _initial_cellnumber=100;
     _max_prolif_types=10;
     _max_immune_types=10;
+}
 
+Data::Data(const Data& other){
+    _initial_cellnumber=other.return_initial_cellnumber();
+    _max_prolif_types=other.return_max_prolif_types();
+    _max_immune_types=other.return_max_immune_types();
 }
 
 Data::Data(ParameterHandler & parameters){
