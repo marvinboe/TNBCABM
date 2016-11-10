@@ -1,6 +1,7 @@
 Doxyfile
 build/
 doc/
+data/
 program
 seed.out
 cscope.out
