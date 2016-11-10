@@ -5,7 +5,7 @@
 
 Kernel::Kernel(Data data):_data(data),_model(_data),_all_reactions(_model,_data){
     // and here some even more funny stuff will come in
-        
+
 }
 
 std::uniform_real_distribution<double> Kernel::uniform01(0.,1.);
@@ -35,58 +35,65 @@ double Kernel::direct_update(double t){
     return t+tau;
 }
 
-void Kernel::deterministic(double t, double dt){
-	//get the parameters
-	int c=_data.get_chemo_state();
-	double d_c=_data.get_death_chemo();
-	double delta=_data.get_death_intrinsic();
-	double ki=_data.get_immune_promoted_rate();
-	double kd=_data.get_immune_inhibited_rate();
-	double PrimaryTumourProRate=_data.get_primary_tumour_prolif_types();
-	double PrimaryTumourImmRate=_data.get_primary_tumour_immune_types();
-	
-	
-	
-	
-	//update the primary tumour size as well as the anti- and pro_ tumour immune cell sizes
-	_PrimaryTumourSize=dt*(PrimaryTumourProRate+PrimaryTumourImmRate*(_ProTumImmuneSize-_AntiTumImmuneSize)-c*d_c*PrimaryTumourProRate-delta*_PrimaryTumourSize)*_PrimaryTumourSize+_PrimaryTumourSize;
-	_AntiTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*_AntiTumImmuneSize+_AntiTumImmuneSize;
-	_ProTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*_ProTumImmuneSize+_ProTumImmuneSize;
-	
-	//std::cout<<t<<"\t"<<_PrimaryTumourSize<<"\t"<<_AntiTumImmuneSize<<"\t"<<_AntiTumImmuneSize<<"\n";
+void Kernel::deterministic(double dt){
+    //get the parameters
+    int c=_data.get_chemo_state();
+    double d_c=_data.get_death_chemo();
+    double delta=_data.get_death_intrinsic();
+    double ki=_data.get_immune_promoted_rate();
+    double kd=_data.get_immune_inhibited_rate();
+    double rate_prim=_data.get_primary_tumour_prolif_rate();
+    double rate_imm=_data.get_primary_tumour_immune_rate();
+
+    double primary_size=_model.return_primary_size();
+    double anti_size=_model.return_anti_immune();
+    double pro_size=_model.return_pro_immune();
+
+    double new_primary_size=0.;
+    double new_anti_size=0.;
+    double new_pro_size=0.;
+
+    //update the primary tumour size as well as the anti- and pro_ tumour immune cell sizes
+    new_primary_size=primary_size+dt*primary_size*(rate_prim+rate_imm*(pro_size-anti_size)-c*d_c*rate_prim-delta*primary_size);
+    new_anti_size=anti_size+dt*anti_size*(primary_size*(ki-kd)-c*d_c);
+    new_pro_size=pro_size+dt*pro_size*(primary_size*(ki-kd)-c*d_c);
+
+    // std::cout <<new_primary_size<<" "<<(rate_prim+rate_imm*(pro_size-anti_size)-c*d_c*rate_prim-delta*primary_size)<<" "<<new_anti_size<<" "<<new_pro_size<<std::endl;
+    _model.set_primary_size(new_primary_size);
+    _model.set_anti_immune(new_anti_size);
+    _model.set_pro_immune(new_pro_size);
+
 }
 
 void Kernel::execute(){
-    double t_max=100;
-    double dt=0.1;
+    double t_max=1;
+    double dt=0.001;
     double output_step=1.;
     double next_t_output=0.;
 
     double t=0;
     double t_stoch=0;
-	
-	_PrimaryTumourSize=_data.get_initial_primary_tumour_cellnumber();
-	_AntiTumImmuneSize=_data.get_initial_anti_tumour_immune_cellnumber();
-	_ProTumImmuneSize=_data.get_initial_pro_tumour_immune_cellnumber();
-	
-	char arq1[200];//name of the file to store the total cell number over time
-	std::ofstream outputMatrx;
-	std::ofstream outputTotalCell;
-	outputTotalCell.open("/Users/huang01/Desktop/Micromet_TotalTumourCellNumberOverTime.txt");
-	std::ostream* outputA= &outputTotalCell;
-	
+
+
+    char arq1[200];//name of the file to store the total cell number over time
+    std::ofstream outputMatrx;
+    std::ofstream outputTotalCell;
+    outputTotalCell.open("/Users/huang01/Desktop/Micromet_TotalTumourCellNumberOverTime.txt");
+    std::ostream* outputA= &outputTotalCell;
+
     while (t<t_max){
         //output stuff (TODO maybe extra class for that)
         while (next_t_output < t){
-			//print matrix to new files every time
+            //print matrix to new files every time
             next_t_output+=output_step;
         }
         while (t_stoch<t){
             t_stoch=direct_update(t_stoch);
         }
         t=t+dt;
-		deterministic(t,dt);
-		
+        deterministic(dt);
+        // std::cout<<t<<"\t"<<_model.get_primary_size()<<"\t"<<new_anti_size<<"\t"<<new_pro_size<<std::endl;
+
     }
- outputTotalCell.close();//close the file storing the total cell number over time
+    outputTotalCell.close();//close the file storing the total cell number over time
 }

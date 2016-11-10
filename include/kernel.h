@@ -19,10 +19,7 @@ class Kernel{
 
         /** actual algorithm step. */
         double direct_update(double t);
-		void deterministic(double t, double dt);
-		double _PrimaryTumourSize;
-		double _AntiTumImmuneSize;
-		double _ProTumImmuneSize;
+        void deterministic(double dt);
 
         Data _data;
         Model _model;
