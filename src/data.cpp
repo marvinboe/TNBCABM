@@ -17,16 +17,41 @@ Data::Data(const Data& other){
 Data::Data(ParameterHandler & parameters){
     //defining defaults:
     _initial_cellnumber=100;
+	_initial_primary_tumour_cellnumber=10000;
+	_initial_anti_tumour_immune_cellnumber=1000;
+	_initial_pro_tumour_immune_cellnumber=1000;
+	
     _max_prolif_types=10;
     _max_immune_types=10;
     _mutation_rate = 1.1;
+	_chemo_state=0;
+	_death_chemo=1;
+    _death_intrinsic=0.1;
+	_immune_promoted_rate=0;
+	_immune_inhibited_rate=0.01;
+	
+	_primary_tumour_prolif_types=1.;
+	_primary_tumour_immune_types=1.;
+	
     
     //overwriting with parameter files
     
     parameters.SetValue("initial_cellnumber","initial number of cells = 100",_initial_cellnumber);
+	parameters.SetValue("initial_primary_tumour_cellnumber","initial number of primary tumour cells = 10000",_initial_primary_tumour_cellnumber);
+	parameters.SetValue("initial_anti_tumour_immune_cellnumber","initial number of anti-tumour immune cells = 1000",_initial_anti_tumour_immune_cellnumber);
+	parameters.SetValue("initial_pro_tumour_immune_cellnumber","initial number of pro-tumour immune cells = 1000",_initial_pro_tumour_immune_cellnumber);
+	
+	
     parameters.SetValue("prolif_types","total number of proliferation phenotypes",_max_prolif_types);
     parameters.SetValue("immune_types","total number of proliferation phenotypes",_max_immune_types);
     parameters.SetValue("mutation_rate","total mutation rate = 0.1",_mutation_rate);
+	parameters.SetValue("chemo_state","whether chemotherapy is applied (0/1)",_chemo_state);
+	parameters.SetValue("death_chemo","death rate due to chemotherapy (need to be scaled by prolif rate)",_death_chemo);
+	parameters.SetValue("death_intrinsic","coeffcient of density dependent death",_death_intrinsic);
+	parameters.SetValue("immune_promoted_rate","the rate of immune cells promoted by total tumour burden (need to be scaled by total tumour size)",_immune_promoted_rate);
+	parameters.SetValue("immune_inhibited_rate","the rate of immune cells inhibited by total tumour burden (need to be scaled by total tumour size)",_immune_inhibited_rate);
+	parameters.SetValue("primary_tumour_prolif_types","the prolif type(rate) of primary tumour cells",_primary_tumour_prolif_types);
+	parameters.SetValue("primary_tumour_immune_types","the immune type(rate) of primary tumour cells",_primary_tumour_immune_types);
 
     parameters.print_help(std::cout);
 

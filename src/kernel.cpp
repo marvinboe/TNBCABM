@@ -36,7 +36,17 @@ double Kernel::direct_update(double t){
     return t+tau;
 }
 
-void Kernel::deterministic(double t, double dt,double PrimaryTumourProRate,double PrimaryTumourImmRate,int c,double d_c,double delta,double ki,double kd){
+void Kernel::deterministic(double t, double dt){
+	//get the parameters
+	int c=_data.get_chemo_state();
+	double d_c=_data.get_death_chemo();
+	double delta=_data.get_death_intrinsic();
+	double ki=_data.get_immune_promoted_rate();
+	double kd=_data.get_immune_inhibited_rate();
+	double PrimaryTumourProRate=_data.get_primary_tumour_prolif_types();
+	double PrimaryTumourImmRate=_data.get_primary_tumour_immune_types();
+	
+	//update the primary tumour size as well as the anti- and pro_ tumour immune cell sizes
 	_PrimaryTumourSize=dt*(PrimaryTumourProRate+PrimaryTumourImmRate*(_ProTumImmuneSize-_AntiTumImmuneSize)-c*d_c*PrimaryTumourProRate-delta*_PrimaryTumourSize)*_PrimaryTumourSize+_PrimaryTumourSize;
 	_AntiTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*_AntiTumImmuneSize+_AntiTumImmuneSize;
 	_ProTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*_ProTumImmuneSize+_ProTumImmuneSize;
@@ -51,17 +61,9 @@ void Kernel::execute(){
     double t=0;
     double t_stoch=0;
 	
-	//initial condition of the primary tumour and immunce cells, this parameters should be define according to the input and consistent with the micromet
-	_PrimaryTumourSize=100000;
-	_AntiTumImmuneSize=1000;
-	_ProTumImmuneSize=1000;
-	double PrimaryTumourProRate=0.1;
-	double PrimaryTumourImmRate=0.001;
-	double c=1;//chemo
-	double d_c=0.01;//death due to chemotherapy
-	double delta=0.1;//intrinsic death
-	double ki=0;
-	double kd=0.01;
+	_PrimaryTumourSize=_data.get_initial_primary_tumour_cellnumber();
+	_AntiTumImmuneSize=_data.get_initial_anti_tumour_immune_cellnumber();
+	_ProTumImmuneSize=_data.get_initial_pro_tumour_immune_cellnumber();
 	
 	
 	char arq1[200];//name of the file to store the total cell number over time
@@ -75,7 +77,7 @@ void Kernel::execute(){
         while (next_t_output < t){
 			//print matrix to new files every time
 			std::sprintf(arq1,"/Users/huang01/Desktop/Micromet_TumourCellNumberForEachPhenotype_MatrixFormat_Time_%d.txt",(int)next_t_output);
-			std::cout<<arq1<<"\n";
+			//std::cout<<arq1<<"\n";
 			outputMatrx.open(arq1);
 			std::ostream* outputB= &outputMatrx;
 			_model.output(next_t_output,*outputB,*outputA);
@@ -86,7 +88,7 @@ void Kernel::execute(){
             t_stoch=direct_update(t_stoch);
         }
         t=t+dt;
-		deterministic(t,dt,PrimaryTumourProRate,PrimaryTumourImmRate,c,d_c,delta,ki,kd);
+		deterministic(t,dt);
 		
     }
  outputTotalCell.close();//close the file storing the total cell number over time
