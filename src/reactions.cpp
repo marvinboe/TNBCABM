@@ -120,7 +120,7 @@ AllReactions::AllReactions(const Model & model, const Data & data):_ratesum(0.0)
             _all.push_back(normaldiff);
             Reaction * mutationdiff= new Division_with_mutation(i,j,data.get_prolif_rate(i) * data.get_mutation_rate());
             _all.push_back(mutationdiff);
-            Reaction * death= new Spontanious_cell_death(i,j,data.get_prolif_rate(i));
+            Reaction * death= new Spontanious_cell_death(i,j, data.get_spontaneous_cell_death_rate());
             _all.push_back(death);
         }
     }

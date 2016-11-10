@@ -12,8 +12,6 @@ class Data{
 
         double get_prolif_rate(unsigned int type) const;
         double set_prolif_rate(unsigned int type, double rate);
-		
-		
 
         double get_mutation_rate() const {return _mutation_rate;}
         void set_mutation_rate(double v){_mutation_rate=v;}
@@ -41,6 +39,7 @@ class Data{
 
 		double get_primary_tumour_prolif_types() const{return _primary_tumour_prolif_types;}
 		double get_primary_tumour_immune_types() const{return _primary_tumour_immune_types;}
+        double get_spontaneous_cell_death_rate() const{return _spontaneous_cell_death_rate;}
 		
 
     private:
@@ -64,6 +63,7 @@ class Data{
         double _prolif_rate;//initial proliferation rate
         double _prolif_var;//allowed variance in proliferation rate
         double _prolif_step;
+        double _spontaneous_cell_death_rate;
 
 
 		double _primary_tumour_prolif_types;

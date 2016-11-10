@@ -31,6 +31,9 @@ Data::Data(ParameterHandler & parameters){
     _death_intrinsic=0.1;
 	_immune_promoted_rate=0;
 	_immune_inhibited_rate=0.01;
+    _prolif_rate=0.3;
+    _prolif_var=0.2;
+    _spontaneous_cell_death_rate=0.3;
 	
 	_primary_tumour_prolif_types=1.;
 	_primary_tumour_immune_types=1.;
@@ -61,7 +64,6 @@ Data::Data(ParameterHandler & parameters){
 }
 
 double Data::get_prolif_rate(unsigned int type) const{
-    //needs to be written!
     return (_prolif_rate - _prolif_var) + (type * _prolif_step);
 }
 
