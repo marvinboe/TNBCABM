@@ -14,8 +14,8 @@ class Data{
     
         double get_immune_sensitivity_rate(unsigned int type) const;
 
-        double get_mutation_rate() const {return _mutation_rate;}
-        void set_mutation_rate(double v){_mutation_rate=v;}
+        double get_mutation_rate() const {return _mutation_prob;}
+        void set_mutation_rate(double v){_mutation_prob=v;}
 
         double return_initial_cellnumber() const { return _initial_cellnumber;}
 
@@ -60,7 +60,7 @@ class Data{
         int _start_prolif_type;
         int _max_immune_types;
         int _start_immune_type;
-        double _mutation_rate;
+        double _mutation_prob;
         int _chemo_state;//binary number with 0 and 1
         double _death_chemo;
         double _immune_promoted_rate;//the rate that immune cells are promoted by total tumour

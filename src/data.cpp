@@ -19,7 +19,7 @@ Data::Data(ParameterHandler & parameters){
     _start_prolif_type=5;
     _max_immune_types=10;
     _start_immune_type=5;
-    _mutation_rate = 1.1;
+    _mutation_prob = 1.1;
 	_chemo_state=1;
 	_death_chemo=0.5;
 	_immune_promoted_rate=0;
@@ -50,7 +50,7 @@ Data::Data(ParameterHandler & parameters){
 	
     parameters.SetValue("prolif_types","total number of proliferation phenotypes",_max_prolif_types);
     parameters.SetValue("immune_types","total number of proliferation phenotypes",_max_immune_types);
-    parameters.SetValue("mutation_rate","total mutation rate = 0.1",_mutation_rate);
+    parameters.SetValue("mutation_rate","total mutation rate = 0.1",_mutation_prob);
 	parameters.SetValue("chemo_state","whether chemotherapy is applied (0/1)",_chemo_state);
 	parameters.SetValue("death_chemo","death rate due to chemotherapy (need to be scaled by prolif rate)",_death_chemo);
 	parameters.SetValue("spontaneous_cell_death_rate","coeffcient of density dependent death for tumour cell",_spontaneous_cell_death_rate);
