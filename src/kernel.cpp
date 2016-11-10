@@ -36,7 +36,11 @@ double Kernel::direct_update(double t){
     return t+tau;
 }
 
-
+void Kernel::deterministic(double t, double dt,double PrimaryTumourProRate,double PrimaryTumourImmRate,int c,double d_c,double delta,double ki,double kd){
+	_PrimaryTumourSize=dt*(PrimaryTumourProRate+PrimaryTumourImmRate*(_ProTumImmuneSize-_AntiTumImmuneSize)-c*d_c*PrimaryTumourProRate-delta*_PrimaryTumourSize)*_PrimaryTumourSize+_PrimaryTumourSize;
+	_AntiTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*_AntiTumImmuneSize;
+	_ProTumImmuneSize=dt*(_PrimaryTumourSize*(ki-kd)-c*d_c)*ProTumImmuneSize;
+}
 
 void Kernel::execute(){
     double t_max=100;
@@ -46,6 +50,17 @@ void Kernel::execute(){
 
     double t=0;
     double t_stoch=0;
+	
+	//initial condition of the primary tumour and immunce cells, this parameters should be define according to the input and consistent with the micromet
+	_PrimaryTumourSize=100000;
+	_AntiTumImmuneSize=1000;
+	_ProTumImmuneSize=1000;
+	double PrimaryTumourProRate=0.1;
+	double PrimaryTumourImmRate=0.001;
+	double c=1;//chemo
+	double d_c=0.01;//death due to chemotherapy
+	double delta=0.1;//intrinsic death
+	
 	
 	char arq1[200];//name of the file to store the total cell number over time
 	std::ofstream outputMatrx;
@@ -69,6 +84,8 @@ void Kernel::execute(){
             t_stoch=direct_update(t_stoch);
         }
         t=t+dt;
+		deterministic(t,dt,PrimaryTumourProRate,PrimaryTumourImmRate,c,d_c,delta,ki,kd);
+		
     }
  outputTotalCell.close();//close the file storing the total cell number over time
 }
