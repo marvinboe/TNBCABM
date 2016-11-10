@@ -21,7 +21,26 @@ class Model{
         void increment_Ccell_number(int type_p, int type_i, double number);
 
         double get_immune_count(int comp) const;
-	    void set_immune_count(int comp, double number);
+        void set_immune_count(int comp, double number);
+
+        
+        /** Returns the size of the primizry (deterministically modeled) tumor.*/
+        double return_primary_size(){return _PrimaryTumourSize;}
+
+        /** Returns anti tumor immune strength.*/
+        double return_anti_immune(){return _AntiTumImmuneSize;}
+
+        /** Returns pro tumor immune strength.*/
+        double return_pro_immune(){return _ProTumImmuneSize;}
+
+        /** Sets the size of the primizry (deterministically modeled) tumor.*/
+        void set_primary_size(double v){_PrimaryTumourSize=v;}
+
+        /** Sets anti tumor immune strength.*/
+        void set_anti_immune(double v){_AntiTumImmuneSize=v;}
+
+        /** Sets pro tumor immune strength.*/
+        void set_pro_immune(double v){_ProTumImmuneSize=v;}
 
         /* print model data to output. */
         void output(double dt, std::ostream & os1, std::ostream & os2) const;//print the output
@@ -30,6 +49,10 @@ class Model{
     private:
 		
     std::vector<std::vector<double>> _cells;
+
+    double _PrimaryTumourSize;
+    double _AntiTumImmuneSize;
+    double _ProTumImmuneSize;
 		
 
 

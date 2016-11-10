@@ -29,8 +29,8 @@ Data::Data(ParameterHandler & parameters){
     _prolif_var=0.2;
     _spontaneous_cell_death_rate=0.3;
 	
-	_primary_tumour_prolif_types=1.;
-	_primary_tumour_immune_types=1.;
+	_primary_tumour_prolif_rate=1.;
+	_primary_tumour_immune_rate=1.;
 	
     _prolif_step = _prolif_var / (double)_start_prolif_type;
     
@@ -50,8 +50,8 @@ Data::Data(ParameterHandler & parameters){
 	parameters.SetValue("death_intrinsic","coeffcient of density dependent death",_death_intrinsic);
 	parameters.SetValue("immune_promoted_rate","the rate of immune cells promoted by total tumour burden (need to be scaled by total tumour size)",_immune_promoted_rate);
 	parameters.SetValue("immune_inhibited_rate","the rate of immune cells inhibited by total tumour burden (need to be scaled by total tumour size)",_immune_inhibited_rate);
-	parameters.SetValue("primary_tumour_prolif_types","the prolif type(rate) of primary tumour cells",_primary_tumour_prolif_types);
-	parameters.SetValue("primary_tumour_immune_types","the immune type(rate) of primary tumour cells",_primary_tumour_immune_types);
+	parameters.SetValue("primary_tumour_prolif_types","the prolif type(rate) of primary tumour cells",_primary_tumour_prolif_rate);
+	parameters.SetValue("primary_tumour_immune_types","the immune type(rate) of primary tumour cells",_primary_tumour_immune_rate);
    
     parameters.print_help(std::cout);
 
