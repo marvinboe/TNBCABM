@@ -27,12 +27,17 @@ Data::Data(ParameterHandler & parameters){
 	_immune_inhibited_rate=0.01;
     _prolif_rate=0.3;
     _prolif_var=0.2;
+    _prolif_step = _prolif_var / (double)_start_prolif_type;
+    _immune_sensitivity_rate = 0.3;
+    _immune_sensitivity_var = 0.2;
+    _immune_sensitivity_step = _immune_sensitivity_var / (double)_start_immune_type;
+    
     _spontaneous_cell_death_rate=0.3;
 	
 	_primary_tumour_prolif_rate=1.;
 	_primary_tumour_immune_rate=1.;
 	
-    _prolif_step = _prolif_var / (double)_start_prolif_type;
+    
     
     //overwriting with parameter files
     
@@ -59,6 +64,10 @@ Data::Data(ParameterHandler & parameters){
 
 double Data::get_prolif_rate(unsigned int type) const{
     return (_prolif_rate - _prolif_var) + (type * _prolif_step);
+}
+
+double Data::get_immune_sensitivity_rate(unsigned int type) const{
+    return (_immune_sensitivity_rate - _immune_sensitivity_var) + (type * _immune_sensitivity_step);
 }
 
 

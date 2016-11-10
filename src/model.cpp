@@ -18,6 +18,7 @@ Model::Model(const Data& data){
     _PrimaryTumourSize=data.get_initial_primary_tumour_cellnumber();
     _AntiTumImmuneSize=data.get_initial_anti_tumour_immune_cellnumber();
     _ProTumImmuneSize=data.get_initial_pro_tumour_immune_cellnumber();
+    _ChemoState=data.get_chemo_state();
 }
 
 
