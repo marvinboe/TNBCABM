@@ -23,7 +23,7 @@ Output::Output(const Data& data){
 
 void Output::save_data(double t, const Model& model){
     int i=t/_output_interval;
-    std::cout <<"debug: "<<t<<" "<<i<<" "<<_timepoints.size()<<" "<<_data.size()<<std::endl;
+    // std::cout <<"debug: "<<t<<" "<<i<<" "<<_timepoints.size()<<" "<<_data.size()<<std::endl;
     datatype indat=model.return_all_cells();
     if (_timepoints.size()<=i){//_data[i] does not exist
         _timepoints.push_back(t);

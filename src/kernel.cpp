@@ -88,5 +88,4 @@ void Kernel::execute(){
         deterministic(dt);
         // std::cout<<t<<"\t"<<_model.get_primary_size()<<"\t"<<new_anti_size<<"\t"<<new_pro_size<<std::endl;
     }
-        _output.output_at_timpoint(5.,std::cout);
 }
