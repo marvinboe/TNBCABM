@@ -1,6 +1,5 @@
 
 #include "data.h"
-#include "parameter_handler.h"
 #include "kernel.h"
 #include <random>
 
@@ -10,7 +9,7 @@ std::mt19937_64 rng;
 int main(int argc,char ** argv){
     uint32_t random_seed=0;
 
-    ParameterHandler(argc,argv);
+    ParameterHandler parameters(argc,argv);
 
     if (random_seed==0){
         std::random_device sysrand;
@@ -18,7 +17,7 @@ int main(int argc,char ** argv){
     }
     rng.seed(random_seed); //seed RNGengine
 
-    Data data;
+    Data data(parameters);
     Kernel ker(data);
     ker.execute();
     std::cout <<"program indeed ended"<<std::endl;
