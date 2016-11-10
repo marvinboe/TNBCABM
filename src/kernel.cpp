@@ -1,5 +1,7 @@
 
 #include "kernel.h"
+#include <fstream>
+#include <ostream>  
 
 Kernel::Kernel(Data data):_data(data),_model(data),_all_reactions(_model,data){
     // and here some even more funny stuff will come in
@@ -44,10 +46,23 @@ void Kernel::execute(){
 
     double t=0;
     double t_stoch=0;
+	
+	char arq1[200];//name of the file to store the total cell number over time
+	std::ofstream outputMatrx;
+	std::ofstream outputTotalCell;
+	outputTotalCell.open("/Users/huang01/Desktop/Micromet_TotalTumourCellNumberOverTime.txt");
+	std::ostream* outputA= &outputTotalCell;
+	
     while (t<t_max){
         //output stuff (TODO maybe extra class for that)
         while (next_t_output < t){
-            std::cout <<next_t_output<<" "<<_model.return_Ccell_number(0,0)<<" "<<std::endl;
+			//print matrix to new files every time
+			std::sprintf(arq1,"/Users/huang01/Desktop/Micromet_TumourCellNumberForEachPhenotype_MatrixFormat_Time_%d.txt",(int)next_t_output);
+			std::cout<<arq1<<"\n";
+			outputMatrx.open(arq1);
+			std::ostream* outputB= &outputMatrx;
+			_model.output(next_t_output,*outputB,*outputA);
+			outputMatrx.close();//close the file storing the matrix
             next_t_output+=output_step;
         }
         while (t_stoch<t){
@@ -55,6 +70,5 @@ void Kernel::execute(){
         }
         t=t+dt;
     }
-
-
+ outputTotalCell.close();//close the file storing the total cell number over time
 }
