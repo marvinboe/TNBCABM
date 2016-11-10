@@ -4,7 +4,6 @@
 #include <ostream>  
 
 Kernel::Kernel(Data data):_data(data),_model(_data),_all_reactions(_model,_data){
-    // and here some even more funny stuff will come in
         
 }
 
