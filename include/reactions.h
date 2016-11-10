@@ -115,6 +115,7 @@ class Spontanious_cell_death : public Reaction {
     Spontanious_cell_death(int type_p, int type_i,double rate):Reaction(type_p,type_i,-1,-1,-1,-1,rate){};
     Spontanious_cell_death(const Spontanious_cell_death& other):Reaction(other){};
     virtual ~Spontanious_cell_death(){};
+    double update_propensity(const Model& model, const Data& data);
 
 };
 

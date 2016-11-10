@@ -67,7 +67,7 @@ void Model::output(double dt, std::ostream & os1, std::ostream & os2) const{
     os2<<dt<<"\t"<<totalCellNum<<"\n";
 }
 
-double Model::return_total_cellnumber(){
+double Model::return_total_cellnumber() const{
     double n_return=0.;
         for (const auto& x: _cells){
             for (const auto& y: (x)){

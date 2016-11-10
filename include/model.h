@@ -50,7 +50,7 @@ class Model{
         std::vector<std::vector<double>> return_all_cells() const {return _cells;}
 
         /** Return total number of cancer cells in system. */
-        double return_total_cellnumber();
+        double return_total_cellnumber() const;
     private:
 		
     /** _cells[type_p][type_i]*/
