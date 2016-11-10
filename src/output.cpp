@@ -30,7 +30,7 @@ void Output::save_data(double t, const Model& model){
 
     }
     else {
-        datatype savedat=_data[i];
+        datatype& savedat=_data[i];
 
         for (int x =0; x< savedat.size();++x){
             for (int y=0; y<savedat[x].size();++y){
