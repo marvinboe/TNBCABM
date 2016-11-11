@@ -110,7 +110,7 @@ void Output::save_all_timepoints(std::string basepath){
 }
 
 void Output::print_time_evol(std::ostream& os){
-        std::cout <<"#<time><totalcells><anti><pro>"<<std::endl;
+    std::cout <<"#<time><totalcells><primary cells><anti><pro>"<<std::endl;
     for (int i=0 ; i< _timepoints.size(); ++i){
         std::cout <<_timepoints[i]<<" "<<_totalcells_data[i]<<" "<<_primary_data[i]<<" "<<_anti_data[i]<<" "<<_pro_data[i]<<std::endl;
 

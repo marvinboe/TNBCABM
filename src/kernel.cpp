@@ -92,7 +92,7 @@ void Kernel::execute(Output& output){
         }
         t=t+dt;
         deterministic(dt);
-        // std::cout<<t<<"\t"<<_model.return_total_cellnumber()<<" "<<_model.return_primary_size()<<"\t"<<_model.return_anti_immune()<<"\t"<<_model.return_pro_immune()<<std::endl;
+        std::cout<<t<<"\t"<<_model.return_total_cellnumber()<<" "<<_model.return_primary_size()<<"\t"<<_model.return_anti_immune()<<"\t"<<_model.return_pro_immune()<<std::endl;
     }
     output.save_at_end(t,_model);
 }
