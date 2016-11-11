@@ -25,7 +25,7 @@ int main(int argc,char ** argv){
         ker.execute(output);
     }
     output.save_all_timepoints("./data/");
-    // output.print_time_evol(std::cout);
+    output.print_time_evol(std::cout);
     std::cout <<"#program ended"<<std::endl;
 
 }

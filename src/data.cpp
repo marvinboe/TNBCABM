@@ -54,7 +54,6 @@ Data::Data(ParameterHandler & parameters){
 
     parameters.SetValue("immune_types","total number of proliferation phenotypes",_immmune.no_types);
     parameters.SetValue("mutation_rate","total mutation rate = 0.1",_mutation_prob);
-    parameters.SetValue("spontaneous_cell_death_rate","coeffcient of density dependent death for tumour cell",_spontaneous_cell_death_rate);
     parameters.SetValue("immune_promoted_rate","the rate of immune cells promoted by total tumour burden (need to be scaled by total tumour size)",_immune_promoted_rate);
     parameters.SetValue("immune_inhibited_rate","the rate of immune cells inhibited by total tumour burden (need to be scaled by total tumour size)",_immune_inhibited_rate);
 

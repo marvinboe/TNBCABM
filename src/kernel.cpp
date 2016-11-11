@@ -62,10 +62,11 @@ void Kernel::deterministic(double dt){
 
     //update the primary tumour size as well as the anti- and pro_ tumour immune cell sizes
     new_primary_size=primary_size+dt*primary_size*(rate_prim+rate_imm*(pro_size-anti_size)-c*d_c*rate_prim-delta*primary_size);
-    new_anti_size=anti_size+dt*anti_size*(Prolif_imm+primary_size*(ki-kd)-c*d_c-delta_imm*anti_size);
-    new_pro_size=pro_size+dt*pro_size*(Prolif_imm+primary_size*(ki-kd)-c*d_c-delta_imm*anti_size);
+    new_anti_size=anti_size+dt*anti_size*(Prolif_imm+primary_size*(ki-kd)-c*0.016*d_c-delta_imm*anti_size);
+    new_pro_size=pro_size+dt*pro_size*(Prolif_imm+primary_size*(ki-kd)-c*0.016*d_c-delta_imm*anti_size);
 
-    // std::cout <<primary_size<<" "<<new_primary_size<<" "<<new_anti_size<<" "<<new_pro_size<<std::endl;
+    // std::cout <<primary_size<<" "<<new_primary_size<<" "<<c*d_c*rate_prim<<" "<<delta<<" "<<new_anti_size<<" "<<new_pro_size<<std::endl;
+    // std::cin.ignore();
     _model.set_primary_size(new_primary_size);
     _model.set_anti_immune(new_anti_size);
     _model.set_pro_immune(new_pro_size);
@@ -85,7 +86,7 @@ void Kernel::execute(Output& output){
         //output stuff (TODO maybe extra class for that)
         while (next_t_output <= t){
             //print matrix to new files every time
-            std::cout<<t<<"\t"<<_model.return_total_cellnumber()<<" "<<_model.return_primary_size()<<"\t"<<_model.return_anti_immune()<<"\t"<<_model.return_pro_immune()<<std::endl;
+            // std::cout<<t<<"\t"<<_model.return_total_cellnumber()<<"\t"<<_model.return_primary_size()<<"\t"<<_model.return_anti_immune()<<"\t"<<_model.return_pro_immune()<<std::endl;
             output.save_data(next_t_output,_model);
             next_t_output+=output_step;
         }
