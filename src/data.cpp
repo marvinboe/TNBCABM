@@ -49,8 +49,8 @@ Data::Data(ParameterHandler & parameters){
     parameters.SetValue("av_prolif_rate","mean proliferation rate of tumor cells",_prolif.av_rate);
 
     parameters.SetValue("death_chemo","death rate due to chemotherapy (need to be scaled by prolif rate)",_chemparams.deathrate);
-    parameters.SetValue("_chemo_starttime","starting time of chemo (default: never)",_chemparams.t_start);
-    parameters.SetValue("_chemo_duration","duration of chemo (default: forever)",_chemparams.t_dur);
+    parameters.SetValue("chemo_starttime","starting time of chemo (default: never)",_chemparams.t_start);
+    parameters.SetValue("chemo_duration","duration of chemo (default: forever)",_chemparams.t_dur);
 
     parameters.SetValue("immune_types","total number of proliferation phenotypes",_immmune.no_types);
     parameters.SetValue("mutation_rate","total mutation rate = 0.1",_mutation_prob);

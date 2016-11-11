@@ -94,6 +94,7 @@ void Kernel::execute(Output& output){
         }
         t=t+dt;
         deterministic(dt);
+        switch_chemo_state(t);
     }
     output.save_at_end(t,_model);
 }
