@@ -30,6 +30,7 @@ double Kernel::direct_update(double t){
         ++i;
         wheightsum+=_all_reactions[i]->propensity();
     }
+    // std::cout <<"test "<<i<<" "<<_all_reactions.end()-_all_reactions.begin()<<" "<<randchoice<<" "<<total_prop<<std::endl;
     Reaction* reaction= _all_reactions[i];
     reaction->apply(_model, _data);
     // std::cout <<"test "<<_model.return_Ccell_number(0,0)<<" "<<total_prop<<" "<<tau<<" "<<randchoice<<" "<<i<<std::endl;
@@ -84,6 +85,7 @@ void Kernel::execute(Output& output){
         //output stuff (TODO maybe extra class for that)
         while (next_t_output <= t){
             //print matrix to new files every time
+            std::cout<<t<<"\t"<<_model.return_total_cellnumber()<<" "<<_model.return_primary_size()<<"\t"<<_model.return_anti_immune()<<"\t"<<_model.return_pro_immune()<<std::endl;
             output.save_data(next_t_output,_model);
             next_t_output+=output_step;
         }
@@ -92,7 +94,19 @@ void Kernel::execute(Output& output){
         }
         t=t+dt;
         deterministic(dt);
-        std::cout<<t<<"\t"<<_model.return_total_cellnumber()<<" "<<_model.return_primary_size()<<"\t"<<_model.return_anti_immune()<<"\t"<<_model.return_pro_immune()<<std::endl;
     }
     output.save_at_end(t,_model);
+}
+
+
+void Kernel::switch_chemo_state(double t){
+
+    if (_model.return_chemo_state() && t>_data.return_chemo_parameters().t_start+_data.return_chemo_parameters().t_dur){
+        _model.set_chemo_state(false);
+        return;
+    }
+    else if (!_model.return_chemo_state() && t > _data.return_chemo_parameters().t_start){
+        _model.set_chemo_state(true);
+    }
+
 }

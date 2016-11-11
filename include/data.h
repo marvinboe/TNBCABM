@@ -3,6 +3,7 @@
 
 #include "parameter_handler.h"
 #include <vector>
+#include <limits>
 
 struct Run_parameters{
     double tmax=100;
@@ -12,9 +13,9 @@ struct Run_parameters{
 };
 
 struct Chemo_parameters{
-    double t_start=10;
-    double t_dur=50;
-    double deathrate=0.1;
+    double t_start=std::numeric_limits<double>::infinity();
+    double t_dur=std::numeric_limits<double>::infinity();
+    double deathrate=0.84;
 };
 
 struct Type_params{
@@ -71,6 +72,7 @@ class Data{
         double return_no_runs() const{return _runparams.no_runs;}
 
         const Run_parameters & return_runparameters(){return _runparams;}
+        const Chemo_parameters& return_chemo_parameters() const{return _chemparams;}
 
 
     private:

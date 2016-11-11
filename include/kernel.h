@@ -22,6 +22,8 @@ class Kernel{
         double direct_update(double t);
         void deterministic(double dt);
 
+        void switch_chemo_state(double t);
+
         Data _data;
         Model _model;
         AllReactions _all_reactions;

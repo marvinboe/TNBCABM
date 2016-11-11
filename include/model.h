@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include "data.h"
 
 class Model{
@@ -31,9 +32,10 @@ class Model{
         double return_anti_immune()const{return _AntiTumImmuneSize;}
 
         /** Returns pro tumor immune strength.*/
-        double return_pro_immune()const{return _ProTumImmuneSize;}
+        double return_pro_immune()const;
     
-        double return_chemo_state()const{return _ChemoState;}
+        bool return_chemo_state()const{return _ChemoState;}
+        void set_chemo_state(bool b){_ChemoState=b;}
 
         /** Sets the size of the primizry (deterministically modeled) tumor.*/
         void set_primary_size(double v){_PrimaryTumourSize=v;}
@@ -59,7 +61,7 @@ class Model{
     double _PrimaryTumourSize;
     double _AntiTumImmuneSize;
     double _ProTumImmuneSize;
-    double _ChemoState;
+    bool _ChemoState;
 		
 
 

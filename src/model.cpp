@@ -75,3 +75,8 @@ double Model::return_total_cellnumber() const{
         }
     return n_return;
 }
+
+double Model::return_pro_immune()const {
+    // if (std::isnan(_ProTumImmuneSize)) throw std::logic_error("value not available");
+    return _ProTumImmuneSize;
+}
